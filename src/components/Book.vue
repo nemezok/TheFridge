@@ -1,7 +1,7 @@
 <template>
   <div>
 	<section id="recipe-catalog">
-				<div class="container">Каталог рецептов
+				<div class="container">
 					<form action="" method="get" class="recipe-list-filter flex flex-row flex-center">
 						<div class="search"><input name="search" type="text" value="" placeholder="Искать" v-model='searchNamePattern'></div>
 						<div class="time" xs-flex="8"><input name="cookingtime" type="text" value="" placeholder="Время приготовления" v-model='searchTimePattern'></div>
