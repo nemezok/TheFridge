@@ -314,7 +314,7 @@ main{
 #notifications .note.expires-soon.active{color: #fcff93;}
 #notifications .note span{display:none;}
 #products-to-purchase{}
-#products-to-purchase .product{background-color: rgba(0, 220, 255, 0.2);}
+#products-to-purchase .product{}
 #user-products{}
 #user-dish-schedule{}
 #recipe-catalog{}
@@ -388,6 +388,9 @@ main{
 .edit-product .pe-quantity > .pe-amount{flex:1;}
 .edit-product .pe-quantity > .pe-measure{flex:none;}
 .edit-product .pe-expiration{}
+.edit-product .pe-expiration input{min-width:50%}
+.edit-product .item-manage a{display:block;}
+
 
 
 
@@ -417,7 +420,13 @@ main{
 	box-shadow: 1px 1px 5px 0px #dadada;
 	border: 1px solid #c7c7c7;
 }
+.recipe a{text-decoration:none !important;color:inherit;}
 .recipe .info{flex-basis: 100%;}
 .recipe .info .title{margin-bottom:5px;}
 .recipe .info .cooking-time{}
 .recipe .info .cooking-time span{margin-left:5px;}
+
+.single-recipe{}
+.single-recipe .recipe-cooking{margin-bottom:15px;}
+.single-recipe .recipe-cooking .cooking{margin-bottom:5px;}
+.single-recipe .recipe-cooking .cooking_time{}
