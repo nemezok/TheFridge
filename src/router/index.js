@@ -6,6 +6,7 @@ import Products from '@/components/Products'
 import Book from '@/components/Book'
 import Qrcode from '@/components/Qrcode'
 import Details from '@/components/Details'
+import AddProduct from '@/components/AddProduct'
 
 Vue.use(Router)
 
@@ -40,6 +41,11 @@ export default new Router({
       path: '/details/:id',
       component: Details,
       name: 'details'
+    },
+    {
+      path: '/addproduct/',
+      component: AddProduct,
+      name: 'addproduct'
     }
   ]
 })
