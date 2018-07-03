@@ -78,16 +78,15 @@ html,body,#app{height: 100%;margin: 0;}
 html{font-size: 16px;}
 @media (max-width: 767px){ html{font-size: 14px;} }
 body{
-	font-family: ProximaNovaCondRegular;
-	color: #313131;
-	
+	font-family: ProximaNovaCondLight;
+	color: #4e4e4e;
 }
 #app{
 	display: flex;
 	flex-direction: column;
 	background-color: #f7f6f2;
 }
-h1,h2,h3,h4,h5,h6{font-family:ProximaNovaCondSemiBold;font-weight: normal;margin:0 0 15px;}
+h1,h2,h3,h4,h5,h6{font-family:ProximaNovaCondRegular;font-weight: normal;margin:0 0 15px;text-transform:uppercase;}
 h1{font-size: 2rem;}
 h2{}
 h3{}
@@ -320,12 +319,12 @@ main{
 #user-dish-schedule{}
 #recipe-catalog{}
 
-.item-manage{flex:none;}
+.item-manage{flex:none;padding-left: 15px;}
 .item-manage a{
 	display: inline-block;
 	color: #909090;
-	background-color: rgba(119, 119, 119, 0.1);
-	padding: 5px 10px;
+	//background-color: rgba(119, 119, 119, 0.1);
+	//padding: 5px 10px;
 	text-decoration: none;
 }
 .item-manage a i{font-size: 24px;}
@@ -339,31 +338,32 @@ main{
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	padding: 5px 10px;
-	margin-bottom: 15px;
-	background-color: rgba(255, 255, 255, 0.5);
-	box-shadow: 1px 1px 5px 0px #dadada;
-	border: 1px solid #c7c7c7;
+	padding: 3px 0px;
+	margin-bottom: 5px;
+	//background-color: rgba(255, 255, 255, 0.5);
+	//box-shadow: 1px 1px 5px 0px #dadada;
+	//border: 1px solid #c7c7c7;
+	border-bottom:1px solid #c7c7c7;
 }
-.product.expired{background-color: rgba(255, 217, 217, 0.5);}
-.product.expires-soon{background-color: rgba(254, 255, 188, 0.5);}
-.product .info, .product .edit-info{flex-basis: 100%;}
-.product .info .title{margin-bottom:5px;}
+.product.expired{
+	//background-color: rgba(255, 217, 217, 0.5);
+}
+.product.expires-soon{
+	//background-color: rgba(254, 255, 188, 0.5);
+}
+.product .info{flex-basis: 100%;display:flex;flex-wrap:wrap;}
+.product .info .title{margin-bottom:0px;margin-right: 5px;}
 .product .info .quantity, .product .info .expiration{
-	display: inline-block;
-	font-family: ProximaNovaCondLight;
 	color: #636363;
 	font-size: 14px;
 }
-.product .info .quantity{margin-right: 10px;}
+.product .info .quantity{margin-right: 5px;}
 .product .info .quantity .amount{}
 .product .info .quantity .measure{}
-.product .info .expiration{}
+.product .info .expiration{margin-left:auto;}
 .product .info .expiration i{margin-right:5px;}
 .product .info .expiration .date{}
 
-.product .edit-info, .product.editing .info{display:none;}
-.product.editing .edit-info{display:block;}
 .product .edit-info .quantity{}
 .product .edit-info input,
 .product .edit-info select{
@@ -371,6 +371,25 @@ main{
 	margin-bottom: 3px;
 	display: block;
 }
+
+.edit-product{}
+.edit-product input, .edit-product select{
+	display:block;
+	width:100%;
+	border:none;
+	border-bottom:1px solid grey;
+	background-color:transparent;
+	padding:0 3px;
+	margin-bottom:3px;
+	height:24px;
+}
+.edit-product .pe-title{flex-basis: 100%;}
+.edit-product .pe-quantity{flex-basis: 100%;display: flex;}
+.edit-product .pe-quantity > .pe-amount{flex:1;}
+.edit-product .pe-quantity > .pe-measure{flex:none;}
+.edit-product .pe-expiration{}
+
+
 
 .recipe-list-filter{margin-bottom:15px;}
 .recipe-list-filter input{
