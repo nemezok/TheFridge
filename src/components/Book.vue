@@ -8,51 +8,15 @@
 						<div class="reset" xs-flex="4"><a href="" class="btn1">Сброс</a></div>
 					</form>
 					<div class="recipe-list flex flex-row">
-						<div class="recipe-wrapper" md-flex="4" sm-flex="6">
+						<div class="recipe-wrapper" md-flex="4" sm-flex="6" v-for="rcp in reciepts">
 							<div class="recipe"> <!-- Классы: epxired, expires-soon -->
 								<div class="info" xs-flex="9">
-									<h4 class="title">Название блюда</h4>
-									<div class="cooking-time"><i class="fo clock"></i><span class="time">30 минут</span></div>
+									<h4 class="title">{{rcp.title}}</h4>
+									<div class="cooking-time"><i class="fo clock"></i><span class="time">{{rcp.cooking_time}} мин.</span></div>
 								</div>
 								<div class="item-manage" xs-flex="3">
 									<a href="" class="edit"><i class="fo pencil"></i></a>
-									<a href="" class="delete"><i class="fo trash"></i></a>
-								</div>
-							</div>
-						</div>
-						<div class="recipe-wrapper" md-flex="4" sm-flex="6">
-							<div class="recipe"> <!-- Классы: epxired, expires-soon -->
-								<div class="info" xs-flex="9">
-									<h4 class="title">Название блюда</h4>
-									<div class="cooking-time"><i class="fo clock"></i><span class="time">30 минут</span></div>
-								</div>
-								<div class="item-manage" xs-flex="3">
-									<a href="" class="edit"><i class="fo pencil"></i></a>
-									<a href="" class="delete"><i class="fo trash"></i></a>
-								</div>
-							</div>
-						</div>
-						<div class="recipe-wrapper" md-flex="4" sm-flex="6">
-							<div class="recipe"> <!-- Классы: epxired, expires-soon -->
-								<div class="info" xs-flex="9">
-									<h4 class="title">Название блюда</h4>
-									<div class="cooking-time"><i class="fo clock"></i><span class="time">30 минут</span></div>
-								</div>
-								<div class="item-manage" xs-flex="3">
-									<a href="" class="edit"><i class="fo pencil"></i></a>
-									<a href="" class="delete"><i class="fo trash"></i></a>
-								</div>
-							</div>
-						</div>
-						<div class="recipe-wrapper" md-flex="4" sm-flex="6">
-							<div class="recipe"> <!-- Классы: epxired, expires-soon -->
-								<div class="info" xs-flex="9">
-									<h4 class="title">Название блюда</h4>
-									<div class="cooking-time"><i class="fo clock"></i><span class="time">30 минут</span></div>
-								</div>
-								<div class="item-manage" xs-flex="3">
-									<a href="" class="edit"><i class="fo pencil"></i></a>
-									<a href="" class="delete"><i class="fo trash"></i></a>
+									<a href="" class="delete" @click.prevent="removeReciept(rcp)"><i class="fo trash"></i></a>
 								</div>
 							</div>
 						</div>
@@ -63,16 +27,21 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+
+import store from '../store/store'
+
 export default {
   name: 'Book',
-  mounted () {
-    const qwe = firebase.database().ref('Recipe')
-    qwe.once('value').then(this.GetName).catch((error) => console.log(error))
+
+  computed: {
+    reciepts () {
+      return store.getters.Reciepts
+    }
   },
+
   methods: {
-    GetName: function (snapshot) {
-      console.log(snapshot.val())
+    removeReciept (n) {
+      store.dispatch('removeReciept', n)
     }
   }
 }
