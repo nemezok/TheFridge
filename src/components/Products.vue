@@ -15,7 +15,7 @@
 						</div>
 						<div class="item-manage" xs-flex="3">
 							<a href="" class="edit"><i class="fo pencil"></i></a>
-							<a href="" class="delete"><i class="fo trash"></i></a>
+							<a href="" class="delete" @click.prevent="removeProduct(prod)"><i class="fo trash"></i></a>
 						</div>
 					</div>
 				</div>
@@ -25,25 +25,21 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+
+import store from '../store/store'
+
 export default {
   name: 'Products',
-  mounted () {
-    const productRef = firebase.database().ref('Products')
-    console.log(productRef)
-    productRef.once('value').then(this.GetName).catch((error) => console.log(error))
-  },
 
-  data: function () {
-    return {
-      products: {}
+  computed: {
+    products () {
+      return store.getters.Products
     }
   },
 
   methods: {
-    GetName: function (snapshot) {
-      this.products = snapshot.val()
-      return this.products
+    removeProduct (n) {
+      store.dispatch('removeProduct', n)
     }
   }
 }
