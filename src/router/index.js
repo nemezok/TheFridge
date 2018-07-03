@@ -5,6 +5,7 @@ import Calendar from '@/components/Calendar'
 import Products from '@/components/Products'
 import Book from '@/components/Book'
 import Qrcode from '@/components/Qrcode'
+import Details from '@/components/Details'
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ export default new Router({
       path: '/qrcode/',
       name: 'Qrcode',
       component: Qrcode
+    },
+    {
+      path: '/details/:id',
+      component: Details,
+      name: 'details'
     }
   ]
 })
