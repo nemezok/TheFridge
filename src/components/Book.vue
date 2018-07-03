@@ -8,7 +8,8 @@
 						<div class="reset" xs-flex="4"><a href="" class="btn1">Сброс</a></div>
 					</form>
 					<div class="recipe-list flex flex-row">
-						<div class="recipe-wrapper" md-flex="4" sm-flex="6" v-for="rcp in reciepts">
+						<div class="recipe-wrapper" md-flex="4" sm-flex="6" v-for="(rcp, id) in reciepts">
+						<router-link :to="{ name:'details', params: {id: rcp.ID} }">
 							<div class="recipe"> <!-- Классы: epxired, expires-soon -->
 								<div class="info" xs-flex="9">
 									<h4 class="title">{{rcp.title}}</h4>
@@ -19,6 +20,7 @@
 									<a href="" class="delete" @click.prevent="removeReciept(rcp)"><i class="fo trash"></i></a>
 								</div>
 							</div>
+						</router-link>
 						</div>
 					</div>
 				</div>
