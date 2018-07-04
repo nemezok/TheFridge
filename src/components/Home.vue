@@ -101,9 +101,16 @@
 </template>
 
 <script>
-	export default {
-	  name: 'Home'
-	}
+
+import store from '../store/store'
+
+export default {
+  name: 'Home',
+
+  mounted () {
+    store.dispatch('pageTitleChange', 'Главная')
+  }
+}
 </script>
 
 <style src="../assets/style.css">

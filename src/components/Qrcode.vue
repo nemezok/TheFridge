@@ -5,9 +5,15 @@
 </template>
 
 <script>
-	export default {
-	  name: 'QRcode'
-	}
+
+import store from '../store/store'
+
+export default {
+  name: 'QRcode',
+  mounted () {
+    store.dispatch('pageTitleChange', 'QR-код')
+  }
+}
 </script>
 
 <style src="../assets/style.css">

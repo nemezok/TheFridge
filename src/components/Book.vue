@@ -48,6 +48,10 @@ export default {
     }
   },
 
+  mounted () {
+    store.dispatch('pageTitleChange', 'Рецепты')
+  },
+
   methods: {
     removeReciept (n) {
       store.dispatch('removeReciept', n)
@@ -55,13 +59,13 @@ export default {
 
     matchTitle (n) {
       if (this.searchNamePattern === '') return true
-      if (n.match(this.searchNamePattern) != null) return true
+      if (n.toLowerCase().match(this.searchNamePattern.toLowerCase()) != null) return true
       return false
     },
 
     matchTime (n) {
       if (this.searchTimePattern === '') return true
-      if (this.searchTimePattern <= n) return false
+      if (this.searchTimePattern <= n - 1) return false
       return true
     },
 
