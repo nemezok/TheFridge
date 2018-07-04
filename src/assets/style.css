@@ -257,6 +257,7 @@ input, textarea, select {
 	color:initial;
 	text-align: center;
 	color:white;
+	margin-bottom: 5px;
 }
 .btn1 i{}
 .btn1 span{margin-left:5px;}
@@ -410,8 +411,8 @@ main{
 
 
 
-.recipe-list-filter{margin-bottom:15px;}
-.recipe-list-filter input{
+.filters{margin-bottom:15px;}
+.filters input, .filters select{
     display: block;
     width: 100%;
     margin-bottom: 5px;
@@ -419,7 +420,7 @@ main{
     border-radius: 5px;
     border: 1px solid #c7c7c7;
 }
-.recipe-list-filter .btn1{
+.filters .btn1{
 	display: block;
 	margin-bottom: 5px;
 	padding-top: 5px;

@@ -1,43 +1,58 @@
 <template>
 	<section id="user-products">
 		<div class="container">
+			<form action="" method="get" class="filters flex flex-row flex-center">
+				<div class="search">
+					<input name="search" type="text" value="" placeholder="Искать" v-model='searchNamePattern'>
+				</div>
+				<div class="time" xs-flex="8">
+					<select name="filter1">
+						<option value="" disabled selected>Срок годности</option>
+						<option value="">Все</option>
+						<option value="">Свежие</option>
+						<option value="">Просроченные</option>
+					</select>
+				</div>
+				<div class="reset" xs-flex="4">
+					<a href="" class="btn1" @click.prevent="resetPattern">Сброс</a>
+				</div>
+			</form>
+
 			<div class="product-list-manage">
 				<a href="" class="btn1 scanQR"><i class="fo qrcode"></i><span>Сканировать QR - код</span></a>
 				<a href="" class="btn1 addproduct" @click.prevent="addProductFormShowChange"><i class="fo plus"></i><span>Добавить продукты</span></a>
 			</div>
-            
-            <div class="product-wrapper" md-flex="4" sm-flex="6" v-show="addProductFormShow">
-				<div class="product edit-product">
-					<div class="info" xs-flex="9">
-						<div class="pe-title">
-							<input name="title" type="text" value="" placeholder="Название продукта" v-model='newProductTitle'>
-						</div>
-						<div class="pe-quantity">
-							<span class="pe-amount">
-								<input name="amount" type="number" value="" step="0.01" placeholder="Количество" v-model='newProductAmount'>
-							</span>
-							<span class="pe-measure">
-								<select name="measure" v-model='newProductMeasure' placeholder="Ед. измерения">
-									<option  selected>Ед.измерения</option>
-									<option value="кг">килограмм</option>
-									<option value="л">литр</option>
-									<option value="шт">штука</option>
-								</select>
-							</span>
-						</div>
-						<div class="pe-expiration">
-							<input name="expiration" type="date" value="" v-model='newProductExpiration' placeholder="Срок годности">
-						</div>
-					</div>
-					<div class="item-manage" xs-flex="3">
-						<a href="" class="save" @click.prevent="addProduct"><i class="fo ok"></i></a>
-						<a href="" class="cancel" @click.prevent="addProductFormShowChange"><i class="fo cancel"></i></a>
-					</div>
-				</div>
-			</div>
-			
 
 			<div class="product-list flex flex-row">
+				<div class="product-wrapper" md-flex="4" sm-flex="6" v-show="addProductFormShow">
+					<div class="product edit-product">
+						<div class="info" xs-flex="9">
+							<div class="pe-title">
+								<input name="title" type="text" value="" placeholder="Название продукта" v-model='newProductTitle'>
+							</div>
+							<div class="pe-quantity">
+								<span class="pe-amount">
+									<input name="amount" type="number" value="" step="0.01" placeholder="Количество" v-model='newProductAmount'>
+								</span>
+								<span class="pe-measure">
+									<select name="measure" v-model='newProductMeasure' placeholder="Ед. измерения">
+										<option  selected>Ед.измерения</option>
+										<option value="кг">килограмм</option>
+										<option value="л">литр</option>
+										<option value="шт">штука</option>
+									</select>
+								</span>
+							</div>
+							<div class="pe-expiration">
+								<input name="expiration" type="date" value="" v-model='newProductExpiration' placeholder="Срок годности">
+							</div>
+						</div>
+						<div class="item-manage" xs-flex="3">
+							<a href="" class="save" @click.prevent="addProduct"><i class="fo ok"></i></a>
+							<a href="" class="cancel" @click.prevent="addProductFormShowChange"><i class="fo cancel"></i></a>
+						</div>
+					</div>
+				</div>
 				<div class="product-wrapper" md-flex="4" sm-flex="6" v-for="prod in products">
 					<div class="product expired">
 						<div class="info" xs-flex="9">
