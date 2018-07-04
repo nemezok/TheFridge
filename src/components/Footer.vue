@@ -1,7 +1,7 @@
 <template>
   <footer id="m-footer">
-  <div class="container">
-	<nav>
+    <div class="container">
+	  <nav>
 		<ul class="menu">
 			<li>
 				<router-link  :to="{ name: 'Home'}">
@@ -34,8 +34,9 @@
 				</router-link>
 			</li>
 		</ul>
-	</nav>
-  </div>
+      </nav>
+      <div class="a-center"><router-link :to="{ name: 'Premium'}">Премиум версия</router-link></div>
+    </div>
   </footer>
 </template>
 

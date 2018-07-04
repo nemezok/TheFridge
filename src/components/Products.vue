@@ -19,8 +19,14 @@
 			</form>
 
 			<div class="product-list-manage">
-				<a href="" class="btn1 scanQR"><i class="fo qrcode"></i><span>Сканировать QR - код</span></a>
-				<a href="" class="btn1 addproduct" @click.prevent="addProductFormShowChange"><i class="fo plus"></i><span>Добавить продукты</span></a>
+				<a href="" class="btn1 scanQR">
+					<i class="fo qrcode"></i>
+					<span>Сканировать QR - код</span>
+				</a>
+				<a href="" class="btn1 addproduct" @click.prevent="addProductFormShowChange">
+					<i class="fo plus"></i>
+					<span>Добавить продукты</span>
+				</a>
 			</div>
 
 			<div class="product-list flex flex-row">
@@ -35,8 +41,8 @@
 									<input name="amount" type="number" value="" step="0.01" placeholder="Количество" v-model='newProductAmount'>
 								</span>
 								<span class="pe-measure">
-									<select name="measure" v-model='newProductMeasure' placeholder="Ед. измерения">
-										<option  selected>Ед.измерения</option>
+									<select name="measure" v-model='newProductMeasure'>
+										<option disabled selected>Ед.измерения</option>
 										<option value="кг">килограмм</option>
 										<option value="л">литр</option>
 										<option value="шт">штука</option>
@@ -66,6 +72,15 @@
 						</div>
 					</div>
 				</div>
+
+				<!--<div class="product-wrapper" md-flex="4" sm-flex="6" v-for="prod in products">
+					<Product
+						:title="prod.title"
+						:amount="prod.amount"
+						:measure="prod.measure"
+						:expiration="prod.expiration"
+					></Product>
+				</div>-->
 			</div>
 		</div>
 	</section>
@@ -74,6 +89,7 @@
 <script>
 
 import store from '../store/store'
+import Product from '@/components/Product'
 
 export default {
   name: 'Products',
@@ -97,6 +113,9 @@ export default {
 
   mounted () {
     store.dispatch('pageTitleChange', 'Мои продукты')
+    var x = document.getElementsByClassName('edit')
+    x.onclick = function (prod) { this.removeProduct(prod) }
+    console.log(x)
   },
 
   methods: {
@@ -140,6 +159,9 @@ export default {
       this.addProductFormReset()
       this.addProductFormShowChange()
     }
+  },
+  components: {
+    'Product': Product
   }
 }
 </script>

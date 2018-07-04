@@ -13,7 +13,8 @@ export default new Vuex.Store({
       email: 'stas0904@mail.ru',
       password: '09042007',
       uid: String
-    }
+    },
+    userData: {}
   },
 
   getters: {
@@ -25,6 +26,9 @@ export default new Vuex.Store({
     },
     PageTitle (state) {
       return state.pageTitle
+    },
+    userData (state) {
+      return state.userData
     }
   },
 
@@ -57,6 +61,9 @@ export default new Vuex.Store({
     },
     pageTitleChange ({commit}, n) {
       commit('PAGE_TITLE_CHANGE', n)
+    },
+    getUserData ({commit}, n) {
+      commit('GET_USER_DATA', n)
     }
   },
 
@@ -87,6 +94,9 @@ export default new Vuex.Store({
     },
     PAGE_TITLE_CHANGE (state, n) {
       state.pageTitle = n
+    },
+    GET_USER_DATA (state, n) {
+      state.userData = n
     }
   }
 })
