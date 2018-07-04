@@ -98,6 +98,10 @@ export default {
     }
   },
 
+  mounted () {
+    store.dispatch('pageTitleChange', 'Детали')
+  },
+
   components: {
     Header,
     Footer

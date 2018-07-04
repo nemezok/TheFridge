@@ -69,7 +69,7 @@ export default {
       newProductTitle: '',
       newProductAmount: '',
       newProductMeasure: '',
-      newProductDate: ''
+      newProductExpiration: ''
     }
   },
 
@@ -79,14 +79,23 @@ export default {
     }
   },
 
+  mounted () {
+    store.dispatch('pageTitleChange', 'Продукты')
+  },
+
   methods: {
     addProduct () {
       let n = {
         amount: this.newProductAmount,
         measure: this.newProductMeasure,
-        title: this.newProductTitle
+        title: this.newProductTitle,
+        expiration: this.newProductExpiration
       }
       store.dispatch('addProduct', n)
+      this.newProductAmount = ''
+      this.newProductMeasure = ''
+      this.newProductTitle = ''
+      this.newProductExpiration = ''
     },
     removeProduct (n) {
       store.dispatch('removeProduct', n)

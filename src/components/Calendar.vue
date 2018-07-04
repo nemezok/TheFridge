@@ -49,6 +49,10 @@ export default {
     }
   },
 
+  mounted () {
+    store.dispatch('pageTitleChange', 'Календарь блюд')
+  },
+
   methods: {
     matchTitle (n) {
       if (this.searchNamePattern === '') return true

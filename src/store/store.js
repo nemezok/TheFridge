@@ -6,7 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     products: {},
-    reciepts: {}
+    reciepts: {},
+    pageTitle: 'Главная'
   },
 
   getters: {
@@ -15,6 +16,9 @@ export default new Vuex.Store({
     },
     Reciepts (state) {
       return state.reciepts
+    },
+    PageTitle (state) {
+      return state.pageTitle
     }
   },
 
@@ -36,6 +40,9 @@ export default new Vuex.Store({
     },
     removeReciept ({commit}, n) {
       commit('REMOVE_RECIEPT', n)
+    },
+    pageTitleChange ({commit}, n) {
+      commit('PAGE_TITLE_CHANGE', n)
     }
   },
 
@@ -57,6 +64,9 @@ export default new Vuex.Store({
     },
     REMOVE_RECIEPT (state, n) {
       state.reciepts.splice(state.reciepts.indexOf(n), 1)
+    },
+    PAGE_TITLE_CHANGE (state, n) {
+      state.pageTitle = n
     }
   }
 })
