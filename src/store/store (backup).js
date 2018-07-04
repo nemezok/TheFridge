@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import firebase from 'firebase'
 
 Vue.use(Vuex)
 
@@ -8,8 +7,7 @@ export default new Vuex.Store({
   state: {
     products: {},
     reciepts: {},
-    pageTitle: 'Главная',
-    user: {}
+    pageTitle: 'Главная'
   },
 
   getters: {
@@ -27,11 +25,6 @@ export default new Vuex.Store({
   actions: {
     initProducts ({commit}, n) {
       commit('INIT_PRODUCT', n)
-    },
-    authorizeUser ({commit}, n) {
-      let email = n.email
-      let password = n.password
-      firebase.auth().signInWithEmailAndPassword(email, password).then(function(user){})
     },
     addProduct ({commit}, n) {
       commit('ADD_PRODUCT', n)

@@ -108,7 +108,7 @@ export default {
   name: 'Home',
 
   mounted () {
-    store.dispatch('pageTitleChange', 'Главная')
+    store.dispatch('pageTitleChange', 'Список покупок')
   }
 }
 </script>
