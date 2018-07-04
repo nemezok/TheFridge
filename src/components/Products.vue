@@ -31,7 +31,7 @@
 					</div>
 					<div class="item-manage" xs-flex="3">
 						<a href="" class="save" @click.prevent="addProduct"><i class="fo ok"></i></a>
-						<a href="" class="cancel" @click.prevent="addProductFormShowChange"><i class="fo cancel"></i></a>
+						<a href="" class="cancel" @click.prevent="addProductFormCancel"><i class="fo cancel"></i></a>
 					</div>
 				</div>
 			</div>
@@ -46,7 +46,7 @@
 							<div class="expiration"><i class="fo clock"></i><span class="date">{{prod.expiration}}</span></div>
 						</div>
 						<div class="item-manage" xs-flex="3">
-							<a href="" class="edit"><i class="fo pencil"></i></a>
+							<a href="" class="edit" @click.prevent="editProduct(prod)"><i class="fo pencil"></i></a>
 							<a href="" class="delete" @click.prevent="removeProduct(prod)"><i class="fo trash"></i></a>
 						</div>
 					</div>
@@ -66,6 +66,7 @@ export default {
   data () {
     return {
       addProductFormShow: false,
+      EditProductFlag: false,
       newProductTitle: '',
       newProductAmount: '',
       newProductMeasure: '',
@@ -80,7 +81,7 @@ export default {
   },
 
   mounted () {
-    store.dispatch('pageTitleChange', 'Продукты')
+    store.dispatch('pageTitleChange', 'Мои продукты')
   },
 
   methods: {
@@ -91,17 +92,38 @@ export default {
         title: this.newProductTitle,
         expiration: this.newProductExpiration
       }
-      store.dispatch('addProduct', n)
-      this.newProductAmount = ''
-      this.newProductMeasure = ''
-      this.newProductTitle = ''
-      this.newProductExpiration = ''
+      if (this.EditProductFlag === true) {
+        store.dispatch('editProduct', n)
+        this.EditProductFlag = false
+        this.addProductFormShowChange()
+      } else {
+        store.dispatch('addProduct', n)
+      }
+      this.addProductFormReset()
+    },
+    editProduct (n) {
+      this.newProductAmount = n.amount
+      this.newProductMeasure = n.measure
+      this.newProductTitle = n.title
+      this.newProductExpiration = n.expiration
+      this.addProductFormShowChange()
+      this.EditProductFlag = true
     },
     removeProduct (n) {
       store.dispatch('removeProduct', n)
     },
     addProductFormShowChange () {
       this.addProductFormShow = !this.addProductFormShow
+    },
+    addProductFormReset () {
+      this.newProductAmount = ''
+      this.newProductMeasure = ''
+      this.newProductTitle = ''
+      this.newProductExpiration = ''
+    },
+    addProductFormCancel () {
+      this.addProductFormReset()
+      this.addProductFormShowChange()
     }
   }
 }

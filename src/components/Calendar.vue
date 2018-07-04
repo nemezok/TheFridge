@@ -50,7 +50,7 @@ export default {
   },
 
   mounted () {
-    store.dispatch('pageTitleChange', 'Календарь блюд')
+    store.dispatch('pageTitleChange', 'План блюд')
   },
 
   methods: {
