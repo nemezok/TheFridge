@@ -6,6 +6,9 @@ import Products from '@/components/Products'
 import Book from '@/components/Book'
 import Qrcode from '@/components/Qrcode'
 import Details from '@/components/Details'
+import Profile from '@/components/Profile'
+import Login from '@/components/Login'
+import Register from '@/components/Register'
 
 Vue.use(Router)
 
@@ -40,6 +43,21 @@ export default new Router({
       path: '/details/:id',
       component: Details,
       name: 'details'
+    },
+    {
+      path: '/profile/',
+      name: 'Profile',
+      component: Profile
+    },
+    {
+      path: '/login/',
+      name: 'Login',
+      component: Login
+    },
+    {
+      path: '/register/',
+      name: 'Register',
+      component: Register
     }
   ]
 })

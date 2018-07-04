@@ -9,7 +9,11 @@ export default new Vuex.Store({
     products: {},
     reciepts: {},
     pageTitle: 'Главная',
-    user: {}
+    user: {
+      email: 'stas0904@mail.ru',
+      password: '09042007',
+      uid: String
+    }
   },
 
   getters: {
@@ -31,7 +35,7 @@ export default new Vuex.Store({
     authorizeUser ({commit}, n) {
       let email = n.email
       let password = n.password
-      firebase.auth().signInWithEmailAndPassword(email, password).then(function(user){})
+      firebase.auth().signInWithEmailAndPassword(email, password).then(function (userData) { commit('AUTHORIZE_USER', userData.user.uid) })
     },
     addProduct ({commit}, n) {
       commit('ADD_PRODUCT', n)
@@ -57,6 +61,9 @@ export default new Vuex.Store({
   },
 
   mutations: {
+    AUTHORIZE_USER (state, n) {
+      state.user.uid = n
+    },
     INIT_PRODUCT (state, n) {
       state.products = n
     },

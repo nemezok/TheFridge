@@ -52,13 +52,6 @@
 							<a href="" class="cancel" @click.prevent="addProductFormShowChange"><i class="fo cancel"></i></a>
 						</div>
 					</div>
-<<<<<<< HEAD
-=======
-					<div class="item-manage" xs-flex="3">
-						<a href="" class="save" @click.prevent="addProduct"><i class="fo ok"></i></a>
-						<a href="" class="cancel" @click.prevent="addProductFormCancel"><i class="fo cancel"></i></a>
-					</div>
->>>>>>> temp2
 				</div>
 				<div class="product-wrapper" md-flex="4" sm-flex="6" v-for="prod in products">
 					<div class="product expired">

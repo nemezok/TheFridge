@@ -258,6 +258,7 @@ input, textarea, select {
 	text-align: center;
 	color:white;
 	margin-bottom: 5px;
+    border: none;
 }
 .btn1 i{}
 .btn1 span{margin-left:5px;}
@@ -451,3 +452,14 @@ main{
 
 .single-recipe-edit{}
 .single-recipe-edit textarea{display:block;width:100%;max-width:100%;min-width:100%;min-height:84px;}
+
+.f-1{
+    display: block;
+    width: 100%;
+    margin-bottom: 5px;
+    padding: 5px 5px;
+    border-radius: 5px;
+    border: 1px solid #c7c7c7;
+}
+
+.auth .container{max-width:420px;}
