@@ -24,6 +24,9 @@ export default {
     productRef.once('value').then(this.GetProducts).catch((error) => console.log(error))
     const recieptRef = firebase.database().ref('Recipes')
     recieptRef.once('value').then(this.GetReciepts).catch((error) => console.log(error))
+
+    const ProductsPRef = firebase.database().ref('ProductsP')
+    ProductsPRef.once('value').then(this.GetProductsP).catch((error) => console.log(error))
   },
 
   methods: {
@@ -32,6 +35,10 @@ export default {
     },
     GetReciepts: function (snapshot) {
       store.dispatch('initReciepts', snapshot.val())
+    },
+    GetProductsP: function (snapshot) {
+      console.log(snapshot.val())
+      store.dispatch('initProductsP', snapshot.val())
     }
   },
 

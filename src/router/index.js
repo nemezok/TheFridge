@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 import Home from '@/components/Home'
 import Calendar from '@/components/Calendar'
 import Products from '@/components/Products'
@@ -9,6 +10,7 @@ import Details from '@/components/Details'
 import Profile from '@/components/Profile'
 import Login from '@/components/Login'
 import Register from '@/components/Register'
+import Premium from '@/components/Premium'
 
 Vue.use(Router)
 
@@ -58,6 +60,11 @@ export default new Router({
       path: '/register/',
       name: 'Register',
       component: Register
+    },
+    {
+      path: '/premium/',
+      name: 'Premium',
+      component: Premium
     }
   ]
 })
