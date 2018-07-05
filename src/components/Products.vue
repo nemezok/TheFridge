@@ -49,9 +49,6 @@
 									</select>
 								</span>
 							</div>
-							<div class="pe-expiration">
-								<input name="expiration" type="date" value="" v-model='newProductExpiration' placeholder="Срок годности">
-							</div>
 						</div>
 						<div class="item-manage" xs-flex="3">
 							<a href="" class="save" @click.prevent="addProduct"><i class="fo ok"></i></a>

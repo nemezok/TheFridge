@@ -26,7 +26,7 @@ export default {
     recieptRef.once('value').then(this.GetReciepts).catch((error) => console.log(error))
 
     const ProductsPRef = firebase.database().ref('ProductsP')
-    ProductsPRef.once('value').then(this.getProductsP).catch((error) => console.log(error))
+    ProductsPRef.once('value').then(this.GetProductsP).catch((error) => console.log(error))
   },
 
   methods: {
@@ -38,9 +38,9 @@ export default {
       console.log(snapshot.val())
       store.dispatch('initReciepts', snapshot.val())
     },
-    getProductsP: function (snapshot) {
+    GetProductsP: function (snapshot) {
       console.log(snapshot.val())
-      store.dispatch('getProductsP', snapshot.val())
+      store.dispatch('initProductsP', snapshot.val())
     }
   },
 

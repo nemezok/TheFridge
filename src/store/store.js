@@ -33,13 +33,18 @@ export default new Vuex.Store({
   },
 
   actions: {
-    initProducts ({commit}, n) {
-      commit('INIT_PRODUCT', n)
+    pageTitleChange ({commit}, n) {
+      commit('PAGE_TITLE_CHANGE', n)
     },
+
     authorizeUser ({commit}, n) {
       let email = n.email
       let password = n.password
       firebase.auth().signInWithEmailAndPassword(email, password).then(function (userData) { commit('AUTHORIZE_USER', userData.user.uid) })
+    },
+
+    initProducts ({commit}, n) {
+      commit('INIT_PRODUCT', n)
     },
     addProduct ({commit}, n) {
       commit('ADD_PRODUCT', n)
@@ -50,6 +55,7 @@ export default new Vuex.Store({
     removeProduct ({commit}, n) {
       commit('REMOVE_PRODUCT', n)
     },
+
     initReciepts ({commit}, n) {
       commit('INIT_RECIEPTS', n)
     },
@@ -59,11 +65,15 @@ export default new Vuex.Store({
     removeReciept ({commit}, n) {
       commit('REMOVE_RECIEPT', n)
     },
-    pageTitleChange ({commit}, n) {
-      commit('PAGE_TITLE_CHANGE', n)
+
+    initProductsP ({commit}, n) {
+      commit('GET_PRODUCTS_P', n)
     },
-    getProductsP ({commit}, n) {
-      commit('GET_PRODUCTSP', n)
+    removeProductP ({commit}, n) {
+      commit('REMOVE_PRODUCT_P', n)
+    },
+    addProductP ({commit}, n) {
+      commit('ADD_PRODUCT_P', n)
     }
   },
 
@@ -95,8 +105,14 @@ export default new Vuex.Store({
     PAGE_TITLE_CHANGE (state, n) {
       state.pageTitle = n
     },
-    GET_PRODUCTSP (state, n) {
+    GET_PRODUCTS_P (state, n) {
       state.productsP = n
+    },
+    REMOVE_PRODUCT_P (state, n) {
+      state.productsP.splice(state.products.indexOf(n), 1)
+    },
+    ADD_PRODUCT_P (state, n) {
+      state.productsP.push(n)
     }
   }
 })

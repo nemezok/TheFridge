@@ -10,7 +10,10 @@
   	<section id="products-to-purchase">
 		<div class="container">Список покупок
 			<div class="product-list-manage">
-				<a href="" class="btn1 addproduct"><i class="fo plus"></i><span>Добавить продукты</span></a>
+				<a href="" class="btn1 addproduct" @click.prevent="addProductFormShowChange">
+					<i class="fo plus"></i>
+					<span>Добавить продукты</span>
+				</a>
 			</div>
 			<div class="product-list flex flex-row">
 				<div class="product-wrapper" md-flex="4" sm-flex="6" v-show="addProductFormShow">
@@ -24,16 +27,13 @@
 									<input name="amount" type="number" value="" step="0.01" placeholder="Количество" v-model='newProductAmount'>
 								</span>
 								<span class="pe-measure">
-									<select name="measure" v-model='newProductMeasure' placeholder="Ед. измерения">
-										<option  selected>Ед.измерения</option>
+									<select name="measure" v-model='newProductMeasure'>
+										<option disabled selected>Ед.измерения</option>
 										<option value="кг">килограмм</option>
 										<option value="л">литр</option>
 										<option value="шт">штука</option>
 									</select>
 								</span>
-							</div>
-							<div class="pe-expiration">
-								<input name="expiration" type="date" value="" v-model='newProductExpiration' placeholder="Срок годности">
 							</div>
 						</div>
 						<div class="item-manage" xs-flex="3">
@@ -45,14 +45,16 @@
 				<div md-flex="4" sm-flex="6" v-for="prod in products">
 					<div class="product">
 						<div class="info" xs-flex="9">
-							<h4 class="title">Название продукта {{prod}}</h4>
-							<div class="quantity"><span class="amount">15,8</span><span class="measure">кг</span></div>
-							<div class="expiration"><i class="fo clock"></i><span class="date">10 июля 2018</span></div>
+							<h4 class="title">{{prod.title}}</h4>
+							<div class="quantity">
+								<span class="amount">{{prod.amount}}</span>
+								<span class="measure">{{prod.measure}}</span>
+							</div>
 						</div>
 						<div class="item-manage" xs-flex="3">
-							<a href="" class="buy"><i class="fo plus"></i></a>
-							<a href="" class="edit"><i class="fo pencil"></i></a>
-							<a href="" class="delete"><i class="fo trash"></i></a>
+							<a href="" class="buy" @click.prevent="buyProduct(prod)"><i class="fo plus"></i></a>
+							<a href="" class="edit" @click.prevent="editProduct(prod)"><i class="fo pencil"></i></a>
+							<a href="" class="delete" @click.prevent="removeProduct(prod)"><i class="fo trash"></i></a>
 						</div>
 					</div>
 				</div>
@@ -75,11 +77,116 @@ export default {
 
   computed: {
     products () {
-      return [1, 2, 3]
-      // return store.getters.UserData
+      return store.getters.ProductsP
     }
+  },
+
+  data () {
+    return {
+      addProductFormShow: false,
+      EditProductFlag: false,
+      newProductTitle: '',
+      newProductAmount: '',
+      newProductMeasure: '',
+      newProductExpiration: ''
+    }
+  },
+
+  methods: {
+    addProduct () {
+      let n = {
+        amount: this.newProductAmount,
+        measure: this.newProductMeasure,
+        title: this.newProductTitle,
+        expiration: this.newProductExpiration
+      }
+      if (this.EditProductFlag === true) {
+        store.dispatch('editProduct', n)
+        this.EditProductFlag = false
+        this.addProductFormShowChange()
+      } else {
+        store.dispatch('addProductP', n)
+      }
+      this.addProductFormReset()
+    },
+    editProduct (n) {
+      this.newProductAmount = n.amount
+      this.newProductMeasure = n.measure
+      this.newProductTitle = n.title
+      this.newProductExpiration = n.expiration
+      this.addProductFormShowChange()
+      this.EditProductFlag = true
+    },
+    removeProduct (n) {
+      store.dispatch('removeProductP', n)
+    },
+    addProductFormShowChange () {
+      this.addProductFormShow = !this.addProductFormShow
+    },
+    addProductFormReset () {
+      this.newProductAmount = ''
+      this.newProductMeasure = ''
+      this.newProductTitle = ''
+      this.newProductExpiration = ''
+    },
+    addProductFormCancel () {
+      this.addProductFormReset()
+      this.addProductFormShowChange()
+    },
+    buyProduct (n) {
+      store.dispatch('removeProductP', n)
+      store.dispatch('addProduct', n)
+    }
+  },
+  updated: function () {
   }
 }
+// var products = Array.from(document.getElementsByClassName('product'))
+window.onload = function (e) {
+  // var products1 = document.getElementsByClassName('product')
+  // console.log(products1)
+}
+function eventFire (el, etype) {
+  if (el.fireEvent) {
+    el.fireEvent('on' + etype)
+  } else {
+    var evObj = document.createEvent('Events')
+    evObj.initEvent(etype, true, false)
+    el.dispatchEvent(evObj)
+  }
+}
+function prodtuch () {
+  var prod = null
+  var startTS = 0
+  var moovedX = 0
+  var startX = 0
+  document.addEventListener('touchstart', function (e) {
+    startTS = e.timeStamp
+    startX = e.changedTouches[0].clientX
+  })
+  document.addEventListener('touchmove', function (e) {
+    if (e.path.find(function (el1, in1, ar1) {
+      if (el1.className === 'product') { prod = el1; return true }
+      return false
+    })) {
+      moovedX = e.changedTouches[0].clientX - startX
+      var speedX = moovedX / (e.timeStamp - startTS)
+      console.log(moovedX, speedX)
+      if (speedX >= 2) { eventFire(prod.getElementsByClassName('buy')[0], 'click') }
+    }
+  })
+}
+prodtuch()
+document.addEventListener('click', function (e) {
+  console.log(e)
+})
+
+document.addEventListener('touchcancel', function (e) {
+  // console.log(e)
+})
+document.addEventListener('touchend', function (e) {
+  // console.log(e)
+})
 </script>
 
 <style src="../assets/style.css">
