@@ -42,7 +42,7 @@
 						</div>
 					</div>
 				</div>
-				<div md-flex="4" sm-flex="6" v-for="prod in products">
+				<div md-flex="4" sm-flex="6" v-for="(prod, prodi) in products">
 					<div class="product">
 						<div class="info" xs-flex="9">
 							<h4 class="title">{{prod.title}}</h4>
@@ -50,25 +50,24 @@
 								<span class="amount">{{prod.amount}}</span>
 								<span class="measure">{{prod.measure}}</span>
 							</div>
+							<div class="quantity">{{prodi}}</div>
 						</div>
 						<div class="item-manage" xs-flex="3">
-							<a href="" class="buy" @click.prevent="buyProduct(prod)"><i class="fo plus"></i></a>
-							<a href="" class="edit" @click.prevent="editProduct(prod)"><i class="fo pencil"></i></a>
-							<a href="" class="delete" @click.prevent="removeProduct(prod)"><i class="fo trash"></i></a>
+							<a href="" class="buy" @click.prevent="buyProduct(prod, prodi)"><i class="fo plus"></i></a>
+							<a href="" class="edit" @click.prevent="editProduct(prod, prodi)"><i class="fo pencil"></i></a>
+							<a href="" class="delete" @click.prevent="removeProduct(prod, prodi)"><i class="fo trash"></i></a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-  <button @click="clickMe">clickMe</button>
   </div>
 </template>
 
 <script>
 
 import store from '../store/store'
-import firebase from 'firebase'
 
 export default {
   name: 'Home',
@@ -111,7 +110,7 @@ export default {
       }
       this.addProductFormReset()
     },
-    editProduct (n) {
+    editProduct (n, i) {
       this.newProductAmount = n.amount
       this.newProductMeasure = n.measure
       this.newProductTitle = n.title
@@ -119,8 +118,8 @@ export default {
       this.addProductFormShowChange()
       this.EditProductFlag = true
     },
-    removeProduct (n) {
-      store.dispatch('removeProductP', n)
+    removeProduct (n, i) {
+      store.dispatch('removeProductP', [n, i])
     },
     addProductFormShowChange () {
       this.addProductFormShow = !this.addProductFormShow
@@ -135,28 +134,16 @@ export default {
       this.addProductFormReset()
       this.addProductFormShowChange()
     },
-    buyProduct (n) {
-      store.dispatch('removeProductP', n)
+    buyProduct (n, i) {
+      store.dispatch('removeProductP', [n, i])
       store.dispatch('addProduct', n)
-    },
-    clickMe () {
-      var debug = store.getters.Products
-      console.log(debug)
-      const productRef = firebase.database().ref('Products')
-      productRef.push(debug).then(function (snapshot) {
-        console.log('Uploaded!')
-      })
     }
   },
   updated: function () {
   }
 }
-// var products = Array.from(document.getElementsByClassName('product'))
-window.onload = function (e) {
-  // var products1 = document.getElementsByClassName('product')
-  // console.log(products1)
-}
-function eventFire (el, etype) {
+
+/* function eventFire (el, etype) {
   if (el.fireEvent) {
     el.fireEvent('on' + etype)
   } else {
@@ -194,14 +181,7 @@ function prodtuch () {
 prodtuch()
 document.addEventListener('click', function (e) {
   console.log(e)
-})
-
-document.addEventListener('touchcancel', function (e) {
-  // console.log(e)
-})
-document.addEventListener('touchend', function (e) {
-  // console.log(e)
-})
+}) */
 </script>
 
 <style src="../assets/style.css">

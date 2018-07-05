@@ -69,8 +69,8 @@ export default new Vuex.Store({
     initProductsP ({commit}, n) {
       commit('GET_PRODUCTS_P', n)
     },
-    removeProductP ({commit}, n) {
-      commit('REMOVE_PRODUCT_P', n)
+    removeProductP ({commit}, p) {
+      commit('REMOVE_PRODUCT_P', p)
     },
     addProductP ({commit}, n) {
       commit('ADD_PRODUCT_P', n)
@@ -108,11 +108,19 @@ export default new Vuex.Store({
     GET_PRODUCTS_P (state, n) {
       state.productsP = n
     },
-    REMOVE_PRODUCT_P (state, n) {
-      state.productsP.splice(state.products.indexOf(n), 1)
+    REMOVE_PRODUCT_P (state, p) {
+      console.log(p)
+      delete state.productsP[p[1]]
+      var productRef = firebase.database().ref('ProductsP')
+      productRef.child(p[1]).remove()
     },
     ADD_PRODUCT_P (state, n) {
       state.productsP.push(n)
+      console.log(n)
+      var productRef = firebase.database().ref('ProductsP')
+      productRef.push(n).then(function (snapshot) {
+        console.log('Uploaded!')
+      })
     }
   }
 })

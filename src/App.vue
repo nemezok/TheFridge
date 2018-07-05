@@ -37,7 +37,6 @@ export default {
       store.dispatch('initReciepts', snapshot.val())
     },
     GetProductsP: function (snapshot) {
-      console.log(snapshot.val())
       store.dispatch('initProductsP', snapshot.val())
     }
   },
@@ -47,6 +46,7 @@ export default {
     Footer
   }
 }
+console.log(store)
 </script>
 
 <style src="./assets/style.css">
