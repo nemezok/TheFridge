@@ -1,34 +1,20 @@
 <template>
-	<section id="user-products">
-		<div class="container">
-			<form action="" method="get" class="filters flex flex-row flex-center">
-				<div class="search">
-					<input name="search" type="text" value="" placeholder="Искать" v-model='searchNamePattern'>
-				</div>
-				<div class="time" xs-flex="8">
-					<select name="filter1">
-						<option value="" disabled selected>Срок годности</option>
-						<option value="">Все</option>
-						<option value="">Свежие</option>
-						<option value="">Просроченные</option>
-					</select>
-				</div>
-				<div class="reset" xs-flex="4">
-					<a href="" class="btn1" @click.prevent="resetPattern">Сброс</a>
-				</div>
-			</form>
-
+  <div>
+  	<section id="notifications">
+		<div class="container">Оповещения
+			<a href="" class="btn1 note recipes" title="Рецепты быстро и легко"><i class="fo book"></i><span>Рецепты быстро и легко</span></a>
+			<a href="" class="btn1 note expired active" title="У вас есть испортившиеся продукты"><i class="fo trash"></i><span>Испортившиеся продукты</span></a>
+			<a href="" class="btn1 note expires-soon" title="У вас есть продукты, которые скоро испортятся"><i class="fo trash"></i><span>Продукты, которые скоро испортятся</span></a>
+		</div>
+	</section>
+  	<section id="products-to-purchase">
+		<div class="container">Список покупок
 			<div class="product-list-manage">
-				<a href="" class="btn1 scanQR">
-					<i class="fo qrcode"></i>
-					<span>Сканировать QR - код</span>
-				</a>
 				<a href="" class="btn1 addproduct" @click.prevent="addProductFormShowChange">
 					<i class="fo plus"></i>
 					<span>Добавить продукты</span>
 				</a>
 			</div>
-
 			<div class="product-list flex flex-row">
 				<div class="product-wrapper" md-flex="4" sm-flex="6" v-show="addProductFormShow">
 					<div class="product edit-product">
@@ -56,40 +42,44 @@
 						</div>
 					</div>
 				</div>
-				<div class="product-wrapper" md-flex="4" sm-flex="6" v-for="prod in products">
+				<div md-flex="4" sm-flex="6" v-for="prod in products">
 					<div class="product">
 						<div class="info" xs-flex="9">
 							<h4 class="title">{{prod.title}}</h4>
-							<div class="quantity"><span class="amount">{{prod.amount}}</span><span class="measure">{{prod.measure}}</span></div>
-							<div class="expiration"><i class="fo clock"></i><span class="date">{{prod.expiration}}</span></div>
+							<div class="quantity">
+								<span class="amount">{{prod.amount}}</span>
+								<span class="measure">{{prod.measure}}</span>
+							</div>
 						</div>
 						<div class="item-manage" xs-flex="3">
+							<a href="" class="buy" @click.prevent="buyProduct(prod)"><i class="fo plus"></i></a>
 							<a href="" class="edit" @click.prevent="editProduct(prod)"><i class="fo pencil"></i></a>
 							<a href="" class="delete" @click.prevent="removeProduct(prod)"><i class="fo trash"></i></a>
 						</div>
 					</div>
 				</div>
-
-				<!--<div class="product-wrapper" md-flex="4" sm-flex="6" v-for="prod in products">
-					<Product
-						:title="prod.title"
-						:amount="prod.amount"
-						:measure="prod.measure"
-						:expiration="prod.expiration"
-					></Product>
-				</div>-->
 			</div>
 		</div>
 	</section>
+  </div>
 </template>
 
 <script>
 
 import store from '../store/store'
-import Product from '@/components/Product'
-
+console.log(store)
 export default {
-  name: 'Products',
+  name: 'Home',
+
+  mounted () {
+    store.dispatch('pageTitleChange', 'Список покупок')
+  },
+
+  computed: {
+    products () {
+      return store.getters.ProductsP
+    }
+  },
 
   data () {
     return {
@@ -100,19 +90,6 @@ export default {
       newProductMeasure: '',
       newProductExpiration: ''
     }
-  },
-
-  computed: {
-    products () {
-      return store.getters.Products
-    }
-  },
-
-  mounted () {
-    store.dispatch('pageTitleChange', 'Мои продукты')
-    var x = document.getElementsByClassName('edit')
-    x.onclick = function (prod) { this.removeProduct(prod) }
-    console.log(x)
   },
 
   methods: {
@@ -128,7 +105,7 @@ export default {
         this.EditProductFlag = false
         this.addProductFormShowChange()
       } else {
-        store.dispatch('addProduct', n)
+        store.dispatch('addProductP', n)
       }
       this.addProductFormReset()
     },
@@ -141,7 +118,7 @@ export default {
       this.EditProductFlag = true
     },
     removeProduct (n) {
-      store.dispatch('removeProduct', n)
+      store.dispatch('removeProductP', n)
     },
     addProductFormShowChange () {
       this.addProductFormShow = !this.addProductFormShow
@@ -155,12 +132,66 @@ export default {
     addProductFormCancel () {
       this.addProductFormReset()
       this.addProductFormShowChange()
+    },
+    buyProduct (n) {
+      store.dispatch('removeProductP', n)
+      store.dispatch('addProduct', n)
     }
   },
-  components: {
-    'Product': Product
+  updated: function () {
   }
 }
+// var products = Array.from(document.getElementsByClassName('product'))
+window.onload = function (e) {
+  // var products1 = document.getElementsByClassName('product')
+  // console.log(products1)
+}
+function eventFire (el, etype) {
+  if (el.fireEvent) {
+    el.fireEvent('on' + etype)
+  } else {
+    var evObj = document.createEvent('Events')
+    evObj.initEvent(etype, true, false)
+    el.dispatchEvent(evObj)
+  }
+}
+function prodtuch () {
+  var prod = null
+  var startTS = 0
+  var moovedX = 0
+  var startX = 0
+  function prodsearch (ifprod) {
+    console.log(ifprod)
+    if (ifprod.className === 'product') return ifprod
+    return prodsearch(ifprod.parentElement)
+  }
+  document.addEventListener('touchstart', function (e) {
+    startTS = e.timeStamp
+    startX = e.changedTouches[0].clientX
+  })
+  document.addEventListener('touchmove', function (e) {
+    console.log(e)
+    prod = prodsearch(e.target)
+    console.log(prod)
+    if (prod) {
+      moovedX = e.changedTouches[0].clientX - startX
+      var speedX = moovedX / (e.timeStamp - startTS)
+      console.log(speedX)
+      if (speedX >= 2) { eventFire(prod.getElementsByClassName('buy')[0], 'click') }
+    }
+  })
+}
+prodtuch()
+document.addEventListener('click', function (e) {
+  console.log(e)
+})
+
+document.addEventListener('touchcancel', function (e) {
+  // console.log(e)
+})
+document.addEventListener('touchend', function (e) {
+  // console.log(e)
+})
 </script>
 
 <style src="../assets/style.css">
