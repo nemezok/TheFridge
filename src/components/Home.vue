@@ -61,6 +61,7 @@
 			</div>
 		</div>
 	</section>
+  <button @click="clickMe">clickMe</button>
   </div>
 </template>
 
@@ -136,6 +137,18 @@ export default {
     buyProduct (n) {
       store.dispatch('removeProductP', n)
       store.dispatch('addProduct', n)
+    },
+    clickMe () {
+      // var message = 'Проверка связи'
+      var debug = store.getters.Products
+      console.log(debug)
+      var blob = new Blob([JSON.stringify(debug, null, 2)], {type: 'application/json'})
+      console.log(blob)
+      let storageRef = firebase.storage().ref()
+      let storageRefChild = storageRef.child('blob')
+      storageRefChild.put(blob).then(function (snapshot) {
+        console.log('Uploaded a blob!')
+      })
     }
   },
   updated: function () {
