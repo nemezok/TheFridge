@@ -4,7 +4,7 @@
       <div class="container">
         <h1>{{rcp.title}}</h1>
         <div class="recipe-manage a-right">
-          <a href="" class="edit btn1"><i class="fo pencil"></i></a>
+          <a href="" class="edit btn1" @click.prevent="editRecieptFormShowChange"><i class="fo pencil"></i></a>
           <a href="" class="delete btn1"><i class="fo trash"></i></a>
         </div>
         <div class="flex flex-row">
@@ -39,7 +39,7 @@
       </div>
     </div>
 
-    <div class="single-recipe single-recipe-edit" v-for="rcp in reciepts" v-if="rcp.ID==$route.params.id">
+    <div class="single-recipe single-recipe-edit" v-for="rcp in reciepts" v-if="rcp.ID==$route.params.id" v-show="editRecieptFormShow">
       <div class="container">
         <div class="recipe-manage a-right">
           <a href="" class="save btn1"><i class="fo ok"></i></a>
@@ -100,6 +100,18 @@ export default {
 
   mounted () {
     store.dispatch('pageTitleChange', 'Детали')
+  },
+
+  data () {
+    return {
+      editRecieptFormShow: false
+    }
+  },
+
+  methods: {
+    editRecieptFormShowChange () {
+      this.editRecieptFormShow = !this.editRecieptFormShow
+    }
   },
 
   components: {

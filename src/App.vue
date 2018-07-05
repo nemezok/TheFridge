@@ -31,13 +31,16 @@ export default {
 
   methods: {
     GetProducts: function (snapshot) {
-      store.dispatch('initProducts', snapshot.val())
+      store.dispatch('initProducts', this.ObjectToArray(snapshot.val()))
     },
     GetReciepts: function (snapshot) {
-      store.dispatch('initReciepts', snapshot.val())
+      store.dispatch('initReciepts', this.ObjectToArray(snapshot.val()))
     },
     GetProductsP: function (snapshot) {
-      store.dispatch('initProductsP', snapshot.val())
+      store.dispatch('initProductsP', this.ObjectToArray(snapshot.val()))
+    },
+    ObjectToArray (obj) {
+      return Object.keys(obj).map(function (key) { return obj[key] })
     }
   },
 

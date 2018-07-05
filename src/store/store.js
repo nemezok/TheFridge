@@ -6,7 +6,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    products: {},
+    products: [],
     productsP: {},
     reciepts: {},
     pageTitle: 'Главная',
@@ -109,8 +109,8 @@ export default new Vuex.Store({
       state.productsP = n
     },
     REMOVE_PRODUCT_P (state, p) {
-      console.log(p)
-      delete state.productsP[p[1]]
+      let n = state.productsP.indexOf(p)
+      state.productsP.splice(n, 1)
       var productRef = firebase.database().ref('ProductsP')
       productRef.child(p[1]).remove()
     },
