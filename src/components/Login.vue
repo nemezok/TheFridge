@@ -22,6 +22,7 @@
 <script>
 
 import store from '../store/store'
+import firebase from 'firebase'
 
 export default {
   name: 'Login',
@@ -37,6 +38,7 @@ export default {
 
   methods: {
     SendAuth () {
+      firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(alert('You are in! Congrats!!!'))
       let user = {
         email: this.email,
         password: this.password

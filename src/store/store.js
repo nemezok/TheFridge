@@ -6,7 +6,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    products: {},
+    products: [],
     productsP: {},
     reciepts: {},
     pageTitle: 'Главная',

@@ -38,7 +38,7 @@
       </div>
     </div>
 
-    <div class="single-recipe single-recipe-edit" v-for="rcp in reciepts" v-if="rcp.ID==$route.params.id">
+    <div class="single-recipe single-recipe-edit" v-for="rcp in reciepts" v-if="rcp.ID==$route.params.id" v-show="editRecieptFormShow">
       <div class="container">
         <div class="recipe-manage a-right">
           <a href="" class="save btn1"><i class="fo ok"></i></a>
@@ -99,6 +99,18 @@ export default {
 
   mounted () {
     store.dispatch('pageTitleChange', 'Детали')
+  },
+
+  data () {
+    return {
+      editRecieptFormShow: false
+    }
+  },
+
+  methods: {
+    editRecieptFormShowChange () {
+      this.editRecieptFormShow = !this.editRecieptFormShow
+    }
   },
 
   components: {
