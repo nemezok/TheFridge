@@ -399,7 +399,7 @@ main{
 	background-color:transparent;
 	padding:0 3px;
 	margin-bottom:3px;
-	height:24px;
+	height:34px;
 }
 .edit-product .pe-title{flex-basis: 100%;}
 .edit-product .pe-quantity{flex-basis: 100%;display: flex;}
@@ -407,7 +407,7 @@ main{
 .edit-product .pe-quantity > .pe-measure{flex:none;}
 .edit-product .pe-expiration{min-width: 50%;}
 .edit-product .pe-expiration input{min-width:50%}
-.edit-product .item-manage a{display:block;}
+.edit-product .item-manage a{display:block;padding:0 4px;}
 
 
 

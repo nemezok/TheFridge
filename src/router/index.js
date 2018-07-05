@@ -7,6 +7,7 @@ import Products from '@/components/Products'
 import Book from '@/components/Book'
 import Qrcode from '@/components/Qrcode'
 import Details from '@/components/Details'
+import DetailsEdit from '@/components/DetailsEdit'
 import Profile from '@/components/Profile'
 import Login from '@/components/Login'
 import Register from '@/components/Register'
@@ -42,9 +43,14 @@ export default new Router({
       component: Qrcode
     },
     {
-      path: '/details/:id',
+      path: '/recipe/:id',
       component: Details,
       name: 'details'
+    },
+    {
+      path: '/recipeEdit/:id',
+      component: DetailsEdit,
+      name: 'DetailsEdit'
     },
     {
       path: '/profile/',
