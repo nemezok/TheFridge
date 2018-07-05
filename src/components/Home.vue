@@ -61,13 +61,15 @@
 			</div>
 		</div>
 	</section>
+  <button @click="clickMe">clickMe</button>
   </div>
 </template>
 
 <script>
 
 import store from '../store/store'
-console.log(store)
+import firebase from 'firebase'
+
 export default {
   name: 'Home',
 
@@ -136,6 +138,14 @@ export default {
     buyProduct (n) {
       store.dispatch('removeProductP', n)
       store.dispatch('addProduct', n)
+    },
+    clickMe () {
+      var debug = store.getters.Products
+      console.log(debug)
+      const productRef = firebase.database().ref('Products')
+      productRef.push(debug).then(function (snapshot) {
+        console.log('Uploaded!')
+      })
     }
   },
   updated: function () {

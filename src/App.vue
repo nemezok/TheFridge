@@ -31,11 +31,9 @@ export default {
 
   methods: {
     GetProducts: function (snapshot) {
-      console.log(snapshot.val())
       store.dispatch('initProducts', snapshot.val())
     },
     GetReciepts: function (snapshot) {
-      console.log(snapshot.val())
       store.dispatch('initReciepts', snapshot.val())
     },
     GetProductsP: function (snapshot) {

@@ -30,20 +30,18 @@ export default {
     store.dispatch('pageTitleChange', 'Авторизация')
   },
 
-  data () {
-    return {
-      email: String,
-      password: String
-    }
+  data: {
+    email: String,
+    password: String
   },
 
   methods: {
     SendAuth () {
-      let qwe = {
+      let user = {
         email: this.email,
         password: this.password
       }
-      store.dispatch('authorizeUser', qwe)
+      store.dispatch('authorizeUser', user)
     }
   }
 }
