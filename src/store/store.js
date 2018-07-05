@@ -36,16 +36,29 @@ export default new Vuex.Store({
     pageTitleChange ({commit}, n) {
       commit('PAGE_TITLE_CHANGE', n)
     },
-
     authorizeUser ({commit}, n) {
       let email = n.email
       let password = n.password
       firebase.auth().signInWithEmailAndPassword(email, password).then(function (userData) { commit('AUTHORIZE_USER', userData.user.uid) })
     },
 
-    initProducts ({commit}, n) {
-      commit('INIT_PRODUCT', n)
+    initProductsP ({commit}, n) {
+      commit('INIT_PRODUCTS_P', n)
     },
+    initProducts ({commit}, n) {
+      commit('INIT_PRODUCTS', n)
+    },
+    initReciepts ({commit}, n) {
+      commit('INIT_RECIEPTS', n)
+    },
+
+    addProductP ({commit}, n) {
+      commit('ADD_PRODUCT_P', n)
+    },
+    removeProductP ({commit}, p) {
+      commit('REMOVE_PRODUCT_P', p)
+    },
+
     addProduct ({commit}, n) {
       commit('ADD_PRODUCT', n)
     },
@@ -56,71 +69,76 @@ export default new Vuex.Store({
       commit('REMOVE_PRODUCT', n)
     },
 
-    initReciepts ({commit}, n) {
-      commit('INIT_RECIEPTS', n)
-    },
     addReciept ({commit}, n) {
       commit('ADD_RECIEPT', n)
     },
     removeReciept ({commit}, n) {
       commit('REMOVE_RECIEPT', n)
-    },
-
-    initProductsP ({commit}, n) {
-      commit('GET_PRODUCTS_P', n)
-    },
-    removeProductP ({commit}, p) {
-      commit('REMOVE_PRODUCT_P', p)
-    },
-    addProductP ({commit}, n) {
-      commit('ADD_PRODUCT_P', n)
     }
   },
 
   mutations: {
+    PAGE_TITLE_CHANGE (state, n) {
+      state.pageTitle = n
+    },
     AUTHORIZE_USER (state, n) {
       state.user.uid = n
     },
-    INIT_PRODUCT (state, n) {
+
+    INIT_PRODUCTS_P (state, n) {
+      state.productsP = n
+    },
+    INIT_PRODUCTS (state, n) {
       state.products = n
-    },
-    ADD_PRODUCT (state, n) {
-      state.products.push(n)
-    },
-    EDIT_PRODUCT (state, n) {
-      state.products[state.products.indexOf(n)] = n
-    },
-    REMOVE_PRODUCT (state, n) {
-      state.products.splice(state.products.indexOf(n), 1)
     },
     INIT_RECIEPTS (state, n) {
       state.reciepts = n
     },
+
+    ADD_PRODUCT_P (state, n) {
+      var productRef = firebase.database().ref('ProductsP')
+      var productRefPush = productRef.push()
+      productRefPush.set(n).then(function (snapshot) {
+        console.log('Uploaded!')
+      })
+      var postId = productRefPush.key
+      state.productsP[postId] = n
+    },
+    REMOVE_PRODUCT_P (state, p) {
+      var productRef = firebase.database().ref('ProductsP')
+      productRef.child(p[1]).remove().then(function (snapshot) {
+        console.log('Removed!')
+      })
+      state.productsP[p[1]] = null
+      delete state.productsP[p[1]]
+    },
+
+    ADD_PRODUCT (state, n) {
+      var productRef = firebase.database().ref('Products')
+      var productRefPush = productRef.push()
+      productRefPush.set(n).then(function (snapshot) {
+        console.log('Uploaded!')
+      })
+      var postId = productRefPush.key
+      state.products[postId] = n
+    },
+    REMOVE_PRODUCT (state, p) {
+      var productRef = firebase.database().ref('Products')
+      productRef.child(p[1]).remove().then(function (snapshot) {
+        console.log('Removed!')
+      })
+      state.products[p[1]] = null
+      delete state.products[p[1]]
+    },
+    EDIT_PRODUCT (state, n) {
+      state.products[state.products.indexOf(n)] = n
+    },
+
     ADD_RECIEPT (state, n) {
       state.reciepts.push(n)
     },
     REMOVE_RECIEPT (state, n) {
       state.reciepts.splice(state.reciepts.indexOf(n), 1)
-    },
-    PAGE_TITLE_CHANGE (state, n) {
-      state.pageTitle = n
-    },
-    GET_PRODUCTS_P (state, n) {
-      state.productsP = n
-    },
-    REMOVE_PRODUCT_P (state, p) {
-      console.log(p)
-      delete state.productsP[p[1]]
-      var productRef = firebase.database().ref('ProductsP')
-      productRef.child(p[1]).remove()
-    },
-    ADD_PRODUCT_P (state, n) {
-      state.productsP.push(n)
-      console.log(n)
-      var productRef = firebase.database().ref('ProductsP')
-      productRef.push(n).then(function (snapshot) {
-        console.log('Uploaded!')
-      })
     }
   }
 })

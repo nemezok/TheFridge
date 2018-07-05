@@ -56,7 +56,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="product-wrapper" md-flex="4" sm-flex="6" v-for="prod in products">
+				<div class="product-wrapper" md-flex="4" sm-flex="6" v-for="(prod, prodi) in products">
 					<div class="product">
 						<div class="info" xs-flex="9">
 							<h4 class="title">{{prod.title}}</h4>
@@ -65,7 +65,7 @@
 						</div>
 						<div class="item-manage" xs-flex="3">
 							<a href="" class="edit" @click.prevent="editProduct(prod)"><i class="fo pencil"></i></a>
-							<a href="" class="delete" @click.prevent="removeProduct(prod)"><i class="fo trash"></i></a>
+							<a href="" class="delete" @click.prevent="removeProduct(prod, prodi)"><i class="fo trash"></i></a>
 						</div>
 					</div>
 				</div>
@@ -140,8 +140,8 @@ export default {
       this.addProductFormShowChange()
       this.EditProductFlag = true
     },
-    removeProduct (n) {
-      store.dispatch('removeProduct', n)
+    removeProduct (n, i) {
+      store.dispatch('removeProduct', [n, i])
     },
     addProductFormShowChange () {
       this.addProductFormShow = !this.addProductFormShow

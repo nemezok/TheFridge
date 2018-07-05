@@ -54,7 +54,7 @@
 						</div>
 						<div class="item-manage" xs-flex="3">
 							<a href="" class="buy" @click.prevent="buyProduct(prod, prodi)"><i class="fo plus"></i></a>
-							<a href="" class="edit" @click.prevent="editProduct(prod, prodi)"><i class="fo pencil"></i></a>
+							<!--<a href="" class="edit" @click.prevent="editProduct(prod, prodi)"><i class="fo pencil"></i></a>-->
 							<a href="" class="delete" @click.prevent="removeProduct(prod, prodi)"><i class="fo trash"></i></a>
 						</div>
 					</div>

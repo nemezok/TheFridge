@@ -35,7 +35,7 @@
 			</li>
 		</ul>
       </nav>
-      <div class="a-center"><router-link :to="{ name: 'Premium'}">Премиум версия</router-link></div>
+      <!-- <div class="a-center"><router-link :to="{ name: 'Premium'}">Премиум версия</router-link></div> -->
     </div>
   </footer>
 </template>

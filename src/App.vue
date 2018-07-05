@@ -27,6 +27,11 @@ export default {
 
     const ProductsPRef = firebase.database().ref('ProductsP')
     ProductsPRef.once('value').then(this.GetProductsP).catch((error) => console.log(error))
+
+    const Ref = firebase.database().ref('Products')
+    Ref.once('value').then(function (data) {
+      console.log(data.val())
+    })
   },
 
   methods: {
@@ -38,6 +43,17 @@ export default {
     },
     GetProductsP: function (snapshot) {
       store.dispatch('initProductsP', snapshot.val())
+
+      /* var keys = Object.keys(snapshot.val())
+      var values = snapshot.val()
+      var ProductsPArray = []
+      keys.forEach(function (key) {
+        console.log(key, snapshot.val())
+        ProductsPArray[key] = values[key]
+      })
+      console.log(ProductsPArray)
+      // var ProductsPArray = Object.values(snapshot.val())
+      store.dispatch('initProductsP', ProductsPArray) */
     }
   },
 
