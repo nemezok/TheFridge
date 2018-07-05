@@ -7,28 +7,28 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     products: {},
+    productsP: {},
     reciepts: {},
     pageTitle: 'Главная',
     user: {
       email: 'stas0904@mail.ru',
       password: '09042007',
       uid: String
-    },
-    userData: {}
+    }
   },
 
   getters: {
     Products (state) {
       return state.products
     },
+    ProductsP (state) {
+      return state.productsP
+    },
     Reciepts (state) {
       return state.reciepts
     },
     PageTitle (state) {
       return state.pageTitle
-    },
-    userData (state) {
-      return state.userData
     }
   },
 
@@ -62,8 +62,8 @@ export default new Vuex.Store({
     pageTitleChange ({commit}, n) {
       commit('PAGE_TITLE_CHANGE', n)
     },
-    getUserData ({commit}, n) {
-      commit('GET_USER_DATA', n)
+    getProductsP ({commit}, n) {
+      commit('GET_PRODUCTSP', n)
     }
   },
 
@@ -95,8 +95,8 @@ export default new Vuex.Store({
     PAGE_TITLE_CHANGE (state, n) {
       state.pageTitle = n
     },
-    GET_USER_DATA (state, n) {
-      state.userData = n
+    GET_PRODUCTSP (state, n) {
+      state.productsP = n
     }
   }
 })

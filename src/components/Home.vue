@@ -42,53 +42,15 @@
 						</div>
 					</div>
 				</div>
-				<div md-flex="4" sm-flex="6">
-					<div class="product"> <!-- Классы: epxired, expires-soon -->
-						<div class="info" xs-flex="9">
-							<h4 class="title">Название продукта</h4>
-							<div class="quantity"><span class="amount">15,8</span><span class="measure">кг</span></div>
-							<div class="expiration"><i class="fo clock"></i><span class="date">10 июля 2018</span></div>
-						</div>
-						<div class="item-manage" xs-flex="3">
-							<a href="" class="edit"><i class="fo pencil"></i></a>
-							<a href="" class="delete"><i class="fo trash"></i></a>
-						</div>
-					</div>
-				</div>
-				<div md-flex="4" sm-flex="6">
+				<div md-flex="4" sm-flex="6" v-for="prod in products">
 					<div class="product">
 						<div class="info" xs-flex="9">
-							<h4 class="title">Название продукта</h4>
+							<h4 class="title">Название продукта {{prod}}</h4>
 							<div class="quantity"><span class="amount">15,8</span><span class="measure">кг</span></div>
 							<div class="expiration"><i class="fo clock"></i><span class="date">10 июля 2018</span></div>
 						</div>
 						<div class="item-manage" xs-flex="3">
-							<a href="" class="edit"><i class="fo pencil"></i></a>
-							<a href="" class="delete"><i class="fo trash"></i></a>
-						</div>
-					</div>
-				</div>
-				<div md-flex="4" sm-flex="6">
-					<div class="product">
-						<div class="info" xs-flex="9">
-							<h4 class="title">Название продукта</h4>
-							<div class="quantity"><span class="amount">15,8</span><span class="measure">кг</span></div>
-							<div class="expiration"><i class="fo clock"></i><span class="date">10 июля 2018</span></div>
-						</div>
-						<div class="item-manage" xs-flex="3">
-							<a href="" class="edit"><i class="fo pencil"></i></a>
-							<a href="" class="delete"><i class="fo trash"></i></a>
-						</div>
-					</div>
-				</div>
-				<div md-flex="4" sm-flex="6">
-					<div class="product">
-						<div class="info" xs-flex="9">
-							<h4 class="title">Название продукта</h4>
-							<div class="quantity"><span class="amount">15,8</span><span class="measure">кг</span></div>
-							<div class="expiration"><i class="fo clock"></i><span class="date">10 июля 2018</span></div>
-						</div>
-						<div class="item-manage" xs-flex="3">
+							<a href="" class="buy"><i class="fo plus"></i></a>
 							<a href="" class="edit"><i class="fo pencil"></i></a>
 							<a href="" class="delete"><i class="fo trash"></i></a>
 						</div>
@@ -103,12 +65,19 @@
 <script>
 
 import store from '../store/store'
-
+console.log(store)
 export default {
   name: 'Home',
 
   mounted () {
     store.dispatch('pageTitleChange', 'Список покупок')
+  },
+
+  computed: {
+    products () {
+      return [1, 2, 3]
+      // return store.getters.UserData
+    }
   }
 }
 </script>

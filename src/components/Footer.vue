@@ -9,12 +9,12 @@
 					<span>Главная</span>
 				</router-link>
 			</li>
-			<li>
+			<!-- <li>
 				<router-link :to="{ name: 'Calendar'}">
 					<i class="fo calendar"></i>
 					<span>План блюд</span>
 				</router-link>
-			</li>
+			</li> -->
 			<li>
 				<router-link :to="{ name: 'Products'}">
 					<i class="fo cart"></i>
