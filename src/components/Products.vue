@@ -57,7 +57,7 @@
 					</div>
 				</div>
 				<div class="product-wrapper" md-flex="4" sm-flex="6" v-for="prod in products">
-					<div class="product expired">
+					<div class="product">
 						<div class="info" xs-flex="9">
 							<h4 class="title">{{prod.title}}</h4>
 							<div class="quantity"><span class="amount">{{prod.amount}}</span><span class="measure">{{prod.measure}}</span></div>

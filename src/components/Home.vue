@@ -160,18 +160,23 @@ function prodtuch () {
   var startTS = 0
   var moovedX = 0
   var startX = 0
+  function prodsearch (ifprod) {
+    console.log(ifprod)
+    if (ifprod.className === 'product') return ifprod
+    return prodsearch(ifprod.parentElement)
+  }
   document.addEventListener('touchstart', function (e) {
     startTS = e.timeStamp
     startX = e.changedTouches[0].clientX
   })
   document.addEventListener('touchmove', function (e) {
-    if (e.path.find(function (el1, in1, ar1) {
-      if (el1.className === 'product') { prod = el1; return true }
-      return false
-    })) {
+    console.log(e)
+    prod = prodsearch(e.target)
+    console.log(prod)
+    if (prod) {
       moovedX = e.changedTouches[0].clientX - startX
       var speedX = moovedX / (e.timeStamp - startTS)
-      console.log(moovedX, speedX)
+      console.log(speedX)
       if (speedX >= 2) { eventFire(prod.getElementsByClassName('buy')[0], 'click') }
     }
   })
