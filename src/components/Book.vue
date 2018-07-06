@@ -6,6 +6,12 @@
 				<div class="time" xs-flex="8"><input name="cookingtime" type="text" value="" placeholder="Время приготовления" v-model='searchTimePattern'></div>
 				<div class="reset" xs-flex="4"><a href="" class="btn1" @click.prevent="resetPattern">Сброс</a></div>
 			</form>
+        <div class="a-right">
+          <a href="" class="btn1 addproduct">
+            <i class="fo plus"></i>
+            <span>Добавить продукты</span>
+          </a>
+        </div>
 			<div class="recipe-list flex flex-row">
 				<div class="recipe-wrapper" md-flex="4" sm-flex="6" v-for="(rcp, id) in reciepts" v-if="matchTitle(rcp.title) && matchTime(rcp.cooking_time)">
 					<div class="recipe">

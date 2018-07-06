@@ -160,7 +160,13 @@ export default new Vuex.Store({
     },
 
     ADD_RECIEPT (state, n) {
-      state.reciepts.push(n)
+      var recipeRef = firebase.database().ref('Recipes')
+      var recipeRefPush = recipeRef.push()
+      recipeRefPush.set(n).then(function (snapshot) {
+        console.log('Uploaded!')
+      })
+      var postId = recipeRefPush.key
+      state.Reciepts[postId] = n
     },
     REMOVE_RECIEPT (state, n) {
       state.reciepts.splice(state.reciepts.indexOf(n), 1)
