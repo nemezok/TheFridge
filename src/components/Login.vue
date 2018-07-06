@@ -70,8 +70,6 @@ import VueSession from 'vue-session'
 import store from '../store/store'
 import firebase from 'firebase'
 
-console.log(firebase)
-
 Vue.use(VueSession)
 export default {
   name: 'Login',

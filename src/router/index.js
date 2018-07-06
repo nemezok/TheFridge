@@ -6,13 +6,14 @@ import Home from '@/components/Home'
 import Calendar from '@/components/Calendar'
 import Products from '@/components/Products'
 import Book from '@/components/Book'
-import Qrcode from '@/components/Qrcode'
+// import Qrcode from '@/components/Qrcode'
 import Details from '@/components/Details'
 import DetailsEdit from '@/components/DetailsEdit'
 import Profile from '@/components/Profile'
 import Login from '@/components/Login'
 import Register from '@/components/Register'
 import Premium from '@/components/Premium'
+import QrcodeReader from '@/components/QrcodeReader'
 
 Vue.use(Router)
 Vue.use(VueSession, {persist: true})
@@ -41,8 +42,8 @@ export default new Router({
     },
     {
       path: '/qrcode/',
-      name: 'Qrcode',
-      component: Qrcode
+      name: 'QrcodeReader',
+      component: QrcodeReader
     },
     {
       path: '/recipe/:id',

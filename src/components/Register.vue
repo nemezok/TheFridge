@@ -24,7 +24,6 @@
 
 import store from '../store/store'
 import firebase from 'firebase'
-console.log(firebase)
 
 export default {
   name: 'Register',

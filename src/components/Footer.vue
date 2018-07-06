@@ -28,7 +28,7 @@
 				</router-link>
 			</li>
 			<li>
-				<router-link :to="{ name: 'Qrcode'}">
+				<router-link :to="{ name: 'QrcodeReader'}">
 					<i class="fo qrcode"></i>
 					<span>QR-код</span>
 				</router-link>

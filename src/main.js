@@ -5,6 +5,15 @@ import App from './App'
 import router from './router'
 import firebase from 'firebase'
 import store from './store/store'
+import QrcodeReader from './components/QrcodeReader.vue'
+
+// Install the components
+export function install (Vue) {
+  Vue.component('qrcode-reader', QrcodeReader)
+}
+
+// Expose the components
+export { QrcodeReader }
 
 Vue.use(store)
 

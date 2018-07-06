@@ -48,6 +48,9 @@ export default new Vuex.Store({
     initUserData ({commit}, n) {
       commit('INIT_USER_DATA', n)
     },
+    addQrCode ({commit}, n) {
+      commit('ADD_QR_CODE', n)
+    },
 
     initProductsP ({commit}, n) {
       commit('INIT_PRODUCTS_P', n)
@@ -93,6 +96,15 @@ export default new Vuex.Store({
     },
     INIT_USER_DATA (state, n) {
       state.UserData = n
+    },
+    ADD_QR_CODE (state, n) {
+      var qrRef = firebase.database().ref(n[0] + '/QRs')
+      var qrRefPush = qrRef.push()
+      qrRefPush.set(n[1]).then(function (snapshot) {
+        console.log('Uploaded!')
+      })
+      var rowId = qrRefPush.key
+      state.UserData.QRs[rowId] = n[1]
     },
 
     INIT_PRODUCTS_P (state, n) {

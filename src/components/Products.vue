@@ -6,11 +6,11 @@
 					<input name="search" type="text" value="" placeholder="Искать" v-model='searchNamePattern'>
 				</div>
 				<div class="time" xs-flex="8">
-					<select name="filter1">
+					<select name="filter1" v-model='prodExpPattern'>
 						<option value="" disabled selected>Срок годности</option>
 						<option value="">Все</option>
-						<option value="">Свежие</option>
-						<option value="">Просроченные</option>
+						<option value="fresh">Свежие</option>
+						<option value="notfresh">Просроченные</option>
 					</select>
 				</div>
 				<div class="reset" xs-flex="4">
@@ -19,10 +19,10 @@
 			</form>
 
 			<div class="product-list-manage">
-				<a href="" class="btn1 scanQR">
+				<router-link :to="{ name: 'QrcodeReader'}" class="btn1 scanQR">
 					<i class="fo qrcode"></i>
 					<span>Сканировать QR - код</span>
-				</a>
+				</router-link>
 				<a href="" class="btn1 addproduct" @click.prevent="addProductFormShowChange">
 					<i class="fo plus"></i>
 					<span>Добавить продукты</span>
@@ -55,7 +55,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="product-wrapper" md-flex="4" sm-flex="6" v-for="(prod, prodi) in products">
+				<div class="product-wrapper" md-flex="4" sm-flex="6" v-for="(prod, prodi) in products" v-if="matchTitle(prod.title) && matchExp(prod.expiration)">
 					<div class="product">
 						<div class="info" xs-flex="9">
 							<h4 class="title">{{prod.title}}</h4>
@@ -104,7 +104,8 @@ export default {
       newProductAmount: '',
       newProductMeasure: '',
       newProductExpiration: '',
-      searchNamePattern: ''
+      searchNamePattern: '',
+      prodExpPattern: ''
     }
   },
 
@@ -158,6 +159,21 @@ export default {
     addProductFormCancel () {
       this.addProductFormReset()
       this.addProductFormShowChange()
+    },
+    matchTitle (n) {
+      if (this.searchNamePattern === '') return true
+      if (n.toLowerCase().match(this.searchNamePattern.toLowerCase()) != null) return true
+      return false
+    },
+
+    matchExp (n) {
+      var curtime = new Date()
+      var curtime1 = curtime.getUTCDate()
+      console.log(curtime1, curtime, this.n)
+      if (this.prodExpPattern === '') return true
+      if (this.prodExpPattern === 'fresh' && curtime <= n) return true
+      if (this.prodExpPattern === 'notfresh' && curtime >= n) return true
+      return true
     }
   },
   components: {
