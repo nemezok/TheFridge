@@ -6,7 +6,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    products: [],
+    products: {},
     productsP: {},
     reciepts: {},
     pageTitle: 'Главная',
@@ -14,10 +14,14 @@ export default new Vuex.Store({
       email: 'stas0904@mail.ru',
       password: '09042007',
       uid: String
-    }
+    },
+    UserData: {}
   },
 
   getters: {
+    PageTitle (state) {
+      return state.pageTitle
+    },
     Products (state) {
       return state.products
     },
@@ -27,8 +31,8 @@ export default new Vuex.Store({
     Reciepts (state) {
       return state.reciepts
     },
-    PageTitle (state) {
-      return state.pageTitle
+    UserData (state) {
+      return state.UserData
     }
   },
 
@@ -40,6 +44,9 @@ export default new Vuex.Store({
       let email = n.email
       let password = n.password
       firebase.auth().signInWithEmailAndPassword(email, password).then(function (userData) { commit('AUTHORIZE_USER', userData.user.uid) })
+    },
+    initUserData ({commit}, n) {
+      commit('INIT_USER_DATA', n)
     },
 
     initProductsP ({commit}, n) {
@@ -55,8 +62,8 @@ export default new Vuex.Store({
     addProductP ({commit}, n) {
       commit('ADD_PRODUCT_P', n)
     },
-    removeProductP ({commit}, p) {
-      commit('REMOVE_PRODUCT_P', p)
+    removeProductP ({commit}, n) {
+      commit('REMOVE_PRODUCT_P', n)
     },
 
     addProduct ({commit}, n) {
@@ -84,6 +91,9 @@ export default new Vuex.Store({
     AUTHORIZE_USER (state, n) {
       state.user.uid = n
     },
+    INIT_USER_DATA (state, n) {
+      state.UserData = n
+    },
 
     INIT_PRODUCTS_P (state, n) {
       state.productsP = n
@@ -96,39 +106,42 @@ export default new Vuex.Store({
     },
 
     ADD_PRODUCT_P (state, n) {
-      var productRef = firebase.database().ref('ProductsP')
+      var productRef = firebase.database().ref(n[0] + '/productsP')
+      console.log(n)
       var productRefPush = productRef.push()
-      productRefPush.set(n).then(function (snapshot) {
+      productRefPush.set(n[1]).then(function (snapshot) {
         console.log('Uploaded!')
       })
       var postId = productRefPush.key
-      state.productsP[postId] = n
+      state.UserData.productsP[postId] = n[1]
     },
-    REMOVE_PRODUCT_P (state, p) {
-      var productRef = firebase.database().ref('ProductsP')
-      productRef.child(p[1]).remove().then(function (snapshot) {
+    REMOVE_PRODUCT_P (state, n) {
+      var productRef = firebase.database().ref(n[0] + '/productsP')
+      console.log(n)
+      productRef.child(n[1]).remove().then(function (snapshot) {
         console.log('Removed!')
       })
-      state.productsP[p[1]] = null
-      delete state.productsP[p[1]]
+      state.UserData.productsP[n[1]] = null
+      delete state.UserData.productsP[n[1]]
     },
 
     ADD_PRODUCT (state, n) {
-      var productRef = firebase.database().ref('Products')
+      console.log(n[1])
+      var productRef = firebase.database().ref(n[0] + '/products')
       var productRefPush = productRef.push()
-      productRefPush.set(n).then(function (snapshot) {
+      productRefPush.set(n[1]).then(function (snapshot) {
         console.log('Uploaded!')
       })
       var postId = productRefPush.key
-      state.products[postId] = n
+      state.UserData.products[postId] = n[1]
     },
-    REMOVE_PRODUCT (state, p) {
-      var productRef = firebase.database().ref('Products')
-      productRef.child(p[1]).remove().then(function (snapshot) {
+    REMOVE_PRODUCT (state, n) {
+      var productRef = firebase.database().ref(n[0] + 'Products')
+      productRef.child(n[1]).remove().then(function (snapshot) {
         console.log('Removed!')
       })
-      state.products[p[1]] = null
-      delete state.products[p[1]]
+      state.UserData.products[n[1]] = null
+      delete state.UserData.products[n[1]]
     },
     EDIT_PRODUCT (state, n) {
       state.products[state.products.indexOf(n)] = n

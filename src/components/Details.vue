@@ -4,7 +4,7 @@
       <div class="container">
         <h1>{{rcp.title}}</h1>
         <div class="recipe-manage a-right">
-          <router-link :to="{ name: 'DetailsEdit'}" class="edit btn1"><i class="fo pencil"></i></router-link>
+          <router-link :to="{ name:'DetailsEdit', params: {id: rcp.ID} }" class="edit btn1"><i class="fo pencil"></i></router-link>
         </div>
         <div class="flex flex-row">
           <div class="recipe-cooking" md-flex="6" sm-flex="6">

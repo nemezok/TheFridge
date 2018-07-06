@@ -60,11 +60,17 @@
 					<div class="product">
 						<div class="info" xs-flex="9">
 							<h4 class="title">{{prod.title}}</h4>
-							<div class="quantity"><span class="amount">{{prod.amount}}</span><span class="measure">{{prod.measure}}</span></div>
-							<div class="expiration"><i class="fo clock"></i><span class="date">{{prod.expiration}}</span></div>
+							<div class="quantity">
+								<span class="amount">{{prod.amount}}</span>
+								<span class="measure">{{prod.measure}}</span>
+							</div>
+							<div class="expiration">
+								<i class="fo clock"></i>
+								<span class="date">{{prod.expiration}}</span>
+							</div>
 						</div>
 						<div class="item-manage" xs-flex="3">
-							<a href="" class="edit" @click.prevent="editProduct(prod)"><i class="fo pencil"></i></a>
+							<!-- <a href="" class="edit" @click.prevent="editProduct(prod)"><i class="fo pencil"></i></a> -->
 							<a href="" class="delete" @click.prevent="removeProduct(prod, prodi)"><i class="fo trash"></i></a>
 						</div>
 					</div>
@@ -104,7 +110,7 @@ export default {
 
   computed: {
     products () {
-      return store.getters.Products
+      return store.getters.UserData.products
     }
   },
 
@@ -128,7 +134,7 @@ export default {
         this.EditProductFlag = false
         this.addProductFormShowChange()
       } else {
-        store.dispatch('addProduct', n)
+        store.dispatch('addProduct', [this.$session.get('uid'), n])
       }
       this.addProductFormReset()
     },
@@ -141,7 +147,7 @@ export default {
       this.EditProductFlag = true
     },
     removeProduct (n, i) {
-      store.dispatch('removeProduct', [n, i])
+      store.dispatch('removeProduct', [this.$session.get('uid'), n, i])
     },
     addProductFormShowChange () {
       this.addProductFormShow = !this.addProductFormShow

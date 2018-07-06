@@ -5,7 +5,7 @@
         <div class="recipe-manage a-right">
           <a href="" class="save btn1"><i class="fo ok"></i></a>
           <a href="" class="delete btn1"><i class="fo trash"></i></a>
-          <router-link :to="{ name: 'DetailsEdit'}" class="cancel btn1"><i class="fo cancel"></i></router-link>
+          <router-link :to="{ name:'details', params: {id: rcp.ID} }" class="cancel btn1"><i class="fo cancel"></i></router-link>
         </div>
         <div class="flex flex-row">
           <div class="recipe-cooking" md-flex="6" sm-flex="6">
@@ -36,7 +36,7 @@
                 </div>
               </div>
               
-              <div class="product-wrapper" v-for="(prod, prodi) in rcp.products">
+              <div class="product-wrapper" v-show="addProductFormShow">
                 <div class="product edit-product">
                   <div class="info" xs-flex="9">
                     <div class="pe-title">
@@ -58,7 +58,11 @@
                 </div>
               </div>
 
-              <div class="a-right"><a href="" class="btn1"><i class="fo plus"></i></a></div>
+              <div class="a-right">
+                <a href="" class="btn1" @click.prevent="addProductFormShowChange">
+                  <i class="fo plus"></i>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -114,6 +118,10 @@ export default {
     },
     removeRecipe (n, i) {
       // store.dispatch('removeProduct', [n, i])
+    },
+    addProductFormShowChange () {
+      this.addProductFormShow = !this.addProductFormShow
+      console.log('addProductFormShowChange', this.addProductFormShow)
     }
   },
 

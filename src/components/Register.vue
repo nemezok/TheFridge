@@ -14,6 +14,7 @@
         <div class="a-center">
           <router-link :to="{ name: 'Login'}">Авторизация</router-link>
         </div>
+        <a @click="checkSession">checkSession</a>
       </div>
     </div>
   </section>
@@ -23,6 +24,7 @@
 
 import store from '../store/store'
 import firebase from 'firebase'
+console.log(firebase)
 
 export default {
   name: 'Register',
@@ -57,6 +59,9 @@ export default {
       //  password: this.password
       // }
       // store.dispatch('authorizeUser', qwe)
+    },
+    checkSession: function () {
+      console.log(this.$session.getAll())
     }
   }
 }

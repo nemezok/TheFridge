@@ -78,7 +78,7 @@ export default {
 
   computed: {
     products () {
-      return store.getters.ProductsP
+      return store.getters.UserData.productsP
     }
   },
 
@@ -106,9 +106,11 @@ export default {
         this.EditProductFlag = false
         this.addProductFormShowChange()
       } else {
-        store.dispatch('addProductP', n)
+        store.dispatch('addProductP', [this.$session.get('uid'), n])
       }
+      console.log(this.$session.get('uid'))
       this.addProductFormReset()
+      this.checkSession()
     },
     editProduct (n, i) {
       this.newProductAmount = n.amount
@@ -118,8 +120,8 @@ export default {
       this.addProductFormShowChange()
       this.EditProductFlag = true
     },
-    removeProduct (n) {
-      store.dispatch('removeProductP', n)
+    removeProduct (n, i) {
+      store.dispatch('removeProductP', [this.$session.get('uid'), i, n])
     },
     addProductFormShowChange () {
       this.addProductFormShow = !this.addProductFormShow
@@ -135,8 +137,11 @@ export default {
       this.addProductFormShowChange()
     },
     buyProduct (n, i) {
-      store.dispatch('removeProductP', [n, i])
-      store.dispatch('addProduct', n)
+      store.dispatch('removeProductP', [this.$session.get('uid'), i, n])
+      store.dispatch('addProduct', [this.$session.get('uid'), n])
+    },
+    checkSession: function () {
+      console.log(this.$session.getAll())
     }
   }
 }

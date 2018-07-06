@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import VueSession from 'vue-session'
 
 import Home from '@/components/Home'
 import Calendar from '@/components/Calendar'
@@ -14,6 +15,7 @@ import Register from '@/components/Register'
 import Premium from '@/components/Premium'
 
 Vue.use(Router)
+Vue.use(VueSession, {persist: true})
 
 export default new Router({
   routes: [
@@ -48,7 +50,7 @@ export default new Router({
       name: 'details'
     },
     {
-      path: '/recipeEdit/:id',
+      path: '/recipe-edit/:id',
       component: DetailsEdit,
       name: 'DetailsEdit'
     },

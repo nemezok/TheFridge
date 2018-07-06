@@ -15,6 +15,10 @@ import Footer from '@/components/Footer'
 
 import firebase from 'firebase'
 import store from './store/store'
+import Vue from 'vue'
+import VueSession from 'vue-session'
+
+Vue.use(VueSession, {persist: true})
 
 export default {
   name: 'app',
@@ -28,32 +32,26 @@ export default {
     const ProductsPRef = firebase.database().ref('ProductsP')
     ProductsPRef.once('value').then(this.GetProductsP).catch((error) => console.log(error))
 
-    const Ref = firebase.database().ref('Products')
-    Ref.once('value').then(function (data) {
-      console.log(data.val())
+    const UserDataRef = firebase.database().ref(this.$session.get('uid'))
+    UserDataRef.once('value').then(function (data) {
+      // console.log(data.val())
+      store.dispatch('initUserData', data.val())
     })
   },
 
   methods: {
     GetProducts: function (snapshot) {
-      store.dispatch('initProducts', this.ObjectToArray(snapshot.val()))
+      store.dispatch('initProducts', snapshot.val())
     },
     GetReciepts: function (snapshot) {
-      store.dispatch('initReciepts', this.ObjectToArray(snapshot.val()))
+      store.dispatch('initReciepts', snapshot.val())
     },
     GetProductsP: function (snapshot) {
       store.dispatch('initProductsP', snapshot.val())
+    },
 
-      /* var keys = Object.keys(snapshot.val())
-      var values = snapshot.val()
-      var ProductsPArray = []
-      keys.forEach(function (key) {
-        console.log(key, snapshot.val())
-        ProductsPArray[key] = values[key]
-      })
-      console.log(ProductsPArray)
-      // var ProductsPArray = Object.values(snapshot.val())
-      store.dispatch('initProductsP', ProductsPArray) */
+    GetUserData: function (snapshot) {
+      store.dispatch('UserData', snapshot.val())
     }
   },
 
