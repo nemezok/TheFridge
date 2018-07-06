@@ -41,13 +41,12 @@
 									<input name="amount" type="number" value="" step="0.01" placeholder="Количество" v-model='newProductAmount'>
 								</span>
 								<span class="pe-measure">
-									<select name="measure" v-model='newProductMeasure'>
-										<option disabled selected>Ед.измерения</option>
-										<option value="кг">килограмм</option>
-										<option value="л">литр</option>
-										<option value="шт">штука</option>
-									</select>
+									<input name="measure" placeholder="Ед. измерения" v-model='newProductMeasure'>
 								</span>
+							</div>
+							<div class="pe-expiration">
+								<span>Годен до: </span>
+								<span><input name="expiration" type="date" v-model='newProductExpiration'></span>
 							</div>
 						</div>
 						<div class="item-manage" xs-flex="3">
@@ -104,7 +103,8 @@ export default {
       newProductTitle: '',
       newProductAmount: '',
       newProductMeasure: '',
-      newProductExpiration: ''
+      newProductExpiration: '',
+      searchNamePattern: ''
     }
   },
 
@@ -116,9 +116,6 @@ export default {
 
   mounted () {
     store.dispatch('pageTitleChange', 'Мои продукты')
-    var x = document.getElementsByClassName('edit')
-    x.onclick = function (prod) { this.removeProduct(prod) }
-    console.log(x)
   },
 
   methods: {
@@ -147,7 +144,7 @@ export default {
       this.EditProductFlag = true
     },
     removeProduct (n, i) {
-      store.dispatch('removeProduct', [this.$session.get('uid'), n, i])
+      store.dispatch('removeProduct', [this.$session.get('uid'), i, n])
     },
     addProductFormShowChange () {
       this.addProductFormShow = !this.addProductFormShow

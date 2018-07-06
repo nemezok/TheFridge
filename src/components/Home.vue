@@ -27,12 +27,7 @@
 									<input name="amount" type="number" value="" step="0.01" placeholder="Количество" v-model='newProductAmount'>
 								</span>
 								<span class="pe-measure">
-									<select name="measure" v-model='newProductMeasure'>
-										<option disabled selected>Ед.измерения</option>
-										<option value="кг">килограмм</option>
-										<option value="л">литр</option>
-										<option value="шт">штука</option>
-									</select>
+									<input name="measure" placeholder="Ед.измерения" v-model='newProductMeasure'>
 								</span>
 							</div>
 						</div>
@@ -50,10 +45,9 @@
 								<span class="amount">{{prod.amount}}</span>
 								<span class="measure">{{prod.measure}}</span>
 							</div>
-							<div class="quantity">{{prodi}}</div>
 						</div>
 						<div class="item-manage" xs-flex="3">
-							<a href="" class="buy" @click.prevent="buyProduct(prod, prodi)"><i class="fo plus"></i></a>
+							<a href="" class="buy" @click.prevent="buyProduct(prod, prodi)"><i class="fo ok"></i></a>
 							<!--<a href="" class="edit" @click.prevent="editProduct(prod, prodi)"><i class="fo pencil"></i></a>-->
 							<a href="" class="delete" @click.prevent="removeProduct(prod, prodi)"><i class="fo trash"></i></a>
 						</div>
@@ -146,7 +140,7 @@ export default {
   }
 }
 
-/* function eventFire (el, etype) {
+function eventFire (el, etype) {
   if (el.fireEvent) {
     el.fireEvent('on' + etype)
   } else {
@@ -161,7 +155,6 @@ function prodtuch () {
   var moovedX = 0
   var startX = 0
   function prodsearch (ifprod) {
-    console.log(ifprod)
     if (ifprod.className === 'product') return ifprod
     return prodsearch(ifprod.parentElement)
   }
@@ -170,21 +163,20 @@ function prodtuch () {
     startX = e.changedTouches[0].clientX
   })
   document.addEventListener('touchmove', function (e) {
-    console.log(e)
     prod = prodsearch(e.target)
-    console.log(prod)
     if (prod) {
       moovedX = e.changedTouches[0].clientX - startX
       var speedX = moovedX / (e.timeStamp - startTS)
-      console.log(speedX)
-      if (speedX >= 2) { eventFire(prod.getElementsByClassName('buy')[0], 'click') }
+      if (speedX >= 1.3) {
+        prod.classList.add('bought')
+        setTimeout(function () {
+          eventFire(prod.getElementsByClassName('buy')[0], 'click')
+        }, 1000)
+      }
     }
   })
 }
 prodtuch()
-document.addEventListener('click', function (e) {
-  console.log(e)
-}) */
 </script>
 
 <style src="../assets/style.css">

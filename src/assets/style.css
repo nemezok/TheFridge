@@ -347,14 +347,15 @@ main{
 	//padding: 5px 10px;
 	text-decoration: none;
 }
-.item-manage a i{font-size: 32px;color: #a2a2a2;}
+.item-manage a i{font-size: 24px;color: #a2a2a2;padding:4px 4px 0;}
 
 
 .product-list-manage{text-align: right;margin-bottom:12px;}
 .product-list-manage .btn1{margin-bottom: 3px;}
 
-.product-list{}
+.product-list{overflow:hidden;}
 .product{
+	position:relative;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -365,7 +366,11 @@ main{
 	//border: 1px solid #c7c7c7;
 	border-bottom:1px solid #c7c7c7;
 	color: #636363;
+	overflow:hidden;
+	left:0%;
+	transition:1s;
 }
+.product.bought{left:150%;}
 .product.expired{
 	//background-color: rgba(255, 217, 217, 0.5);
 }
@@ -405,8 +410,7 @@ main{
 .edit-product .pe-quantity{flex-basis: 100%;display: flex;}
 .edit-product .pe-quantity > .pe-amount{flex:1;}
 .edit-product .pe-quantity > .pe-measure{flex:none;}
-.edit-product .pe-expiration{min-width: 50%;}
-.edit-product .pe-expiration input{min-width:50%}
+.edit-product .pe-expiration > span{display:inline-block;padding:0 4px;}
 .edit-product .item-manage a{display:block;padding:0 4px;}
 
 

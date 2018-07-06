@@ -136,7 +136,7 @@ export default new Vuex.Store({
       state.UserData.products[postId] = n[1]
     },
     REMOVE_PRODUCT (state, n) {
-      var productRef = firebase.database().ref(n[0] + 'Products')
+      var productRef = firebase.database().ref(n[0] + '/products')
       productRef.child(n[1]).remove().then(function (snapshot) {
         console.log('Removed!')
       })

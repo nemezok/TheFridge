@@ -6,7 +6,7 @@
 		<div xs-flex="8"><h1 class="page-title">{{pagetitle}}</h1></div>
 		<div xs-flex="2" class="profile-href">
 			<router-link :to="{ name: 'Login'}"><i class="fo user"></i></router-link>
-			<a @click="checkSession">checkSession</a>
+			<!-- <a @click="checkSession">checkSession</a> -->
 		</div>
 	</div>
   </div>
