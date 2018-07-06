@@ -168,8 +168,7 @@ export default {
 
     matchExp (n) {
       var curtime = new Date()
-      var curtime1 = curtime.getUTCDate()
-      console.log(curtime1, curtime, this.n)
+      // var curtime1 = curtime.getUTCDate()
       if (this.prodExpPattern === '') return true
       if (this.prodExpPattern === 'fresh' && curtime <= n) return true
       if (this.prodExpPattern === 'notfresh' && curtime >= n) return true
